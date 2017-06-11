@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="TagPlayer.controls.PlayListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="502" d:DesignWidth="473" Width="473" Height="400" 
+             FontFamily="Microsoft YaHei UI"
+             mc:Ignorable="d" BorderThickness="3,3,0,0" x:Name="UserControl">
+    <UserControl.Resources>
+        <ResourceDictionary Source="./Resource/PlayListResource.xaml"/>
+    </UserControl.Resources>
+    <UserControl.BorderBrush>
+        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+            <GradientStop Color="#FF0FE3F1" Offset="0.757"/>
+            <GradientStop Color="#FFDFFBFD" Offset="1"/>
+        </LinearGradientBrush>
+    </UserControl.BorderBrush>
+    <!--播放列表-->
+    <Grid Visibility="Visible" x:Name="GridPlayList" Margin="0" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ListBox x:Name="PlayingList" Grid.Row="0" BorderThickness="0" 
+                 ItemsSource="{Binding SongListService.PlayListItem}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding SongListService.DoubleClickPlayingListCommand}" CommandParameter="{Binding ElementName=PlayingList}"></i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <!--<ListBox.Resources>
+                        <ResourceDictionary>
+                            <ResourceDictionary.MergedDictionaries>
+                                <ResourceDictionary Source="CommonResource/ScrollViewer.xaml"/>
+                            </ResourceDictionary.MergedDictionaries>
+                        </ResourceDictionary>
+                    </ListBox.Resources>-->
+            <ListBox.ItemTemplate>
+                <HierarchicalDataTemplate>
+                    <Grid Background="{Binding Color}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="70"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" x:Name="tblcTitle" ToolTip="{Binding Song.Title}" Text="{Binding Song.Title}" Margin="0,5,10,5"></TextBlock>
+                        <TextBlock Grid.Column="1" x:Name="tblcArtist" ToolTip="{Binding Song.Artist}" Text="{Binding Song.Artist}" Margin="0,5,10,5" Foreground="{StaticResource ForegroundBrush}"></TextBlock>
+                        <TextBlock Grid.Column="2" x:Name="tblcDuration" ToolTip="{Binding Song.Duration}" Text="{Binding Song.Duration}" Margin="0,5,15,5" Foreground="{StaticResource ForegroundBrush}"></TextBlock>
+                    </Grid>
+                </HierarchicalDataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.Background>
+                <SolidColorBrush Color="AliceBlue"/>
+            </ListBox.Background>
+            <ListBox.ContextMenu>
+                <ContextMenu Name="ContextMenuPlayList">
+                    <MenuItem x:Name="MenuItemPlayList播放" Header="播放" 
+                              Command="{Binding SongListService.DoubleClickPlayingListCommand}"
+                              CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
+                    <MenuItem x:Name="MenuItemPlayList编辑" Header="编辑标签" 
+                              Command="{Binding SongListService.SongListEditTagsMenuCommand}" 
+                              CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
+                    <MenuItem x:Name="MenuItemPlayList删除" Header="从列表删除"
+                              Command="{Binding SongListService.DelPlayListCommand}"
+                              CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+        <Grid Grid.Row="1" Margin="0">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                    <GradientStop Color="#7FF0F8FF"/>
+                    <GradientStop Color="AliceBlue" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Button x:Name="BtnClosePlayList" Template="{StaticResource PlayListButtonTemplate}" 
+                    Command="{Binding VisibilityService.CancelCommand}"
+                    Content="取消" HorizontalAlignment="Right" Margin="383,15,15,0" VerticalAlignment="Top" Width="75"/>
+            <Button x:Name="BtnClearPlayList" Template="{StaticResource PlayListButtonTemplate}" 
+                    Command="{Binding SongListService.ClearCommand}"
+                    Content="清空" HorizontalAlignment="Right" Margin="0,15,105,0" VerticalAlignment="Top" Width="75"/>
+        </Grid>
+    </Grid>
+</UserControl>

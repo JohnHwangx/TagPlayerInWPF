@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="TagPlayer.controls.Resource.Tags.TagTheme"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TagPlayer.controls.Resource.Tags"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <WrapPanel Background="Transparent" Height="Auto" x:Name="WrapPanel">
+        <!--<Button x:Name="btn_影视原声" Content="影视原声" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_ACG" Content="ACG" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_校园" Content="校园" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_游戏" Content="游戏" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_70后" Content="70后" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_80后" Content="80后" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_90后" Content="90后" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_网络歌曲" Content="网络歌曲" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_KTV" Content="KTV" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_经典" Content="经典" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_翻唱" Content="翻唱" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_吉他" Content="吉他" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_钢琴" Content="钢琴" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_器乐" Content="器乐" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_儿童" Content="儿童" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_榜单" Content="榜单" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_00后" Content="00后" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>-->
+    </WrapPanel>
+</UserControl>

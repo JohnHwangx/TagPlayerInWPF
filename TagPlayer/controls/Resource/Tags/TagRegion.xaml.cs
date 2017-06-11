@@ -11,20 +11,23 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using TagPlayer.Model;
 using System.Windows.Shapes;
 
-namespace TagPlayer
+namespace TagPlayer.controls.Resource.Tags
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// TagRegion.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TagRegion : UserControl
     {
-
-        public MainWindow()
+        public TagRegion()
         {
-            DataContext = new MainViewModel();
             InitializeComponent();
+            foreach (var button in TagButtonModel.GetButtonContent("RegionTags"))
+            {
+                WrapPanel.Children.Add(button);
+            }
         }
     }
 }

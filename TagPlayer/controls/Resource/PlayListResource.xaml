@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTemplate x:Key="PlayListButtonTemplate" TargetType="Button">
+        <TextBlock Cursor="Hand" Name="a" Foreground="{StaticResource ForegroundBrush}" HorizontalAlignment="Center" FontSize="14.667">
+                <ContentPresenter RecognizesAccessKey="True"/>
+        </TextBlock>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="a" Property="Foreground" Value="Black"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+</ResourceDictionary>

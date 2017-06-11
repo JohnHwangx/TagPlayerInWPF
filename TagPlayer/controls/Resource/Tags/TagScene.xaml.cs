@@ -12,19 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TagPlayer.Model;
 
-namespace TagPlayer
+
+namespace TagPlayer.controls.Resource.Tags
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// TagScene.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TagScene : UserControl
     {
-
-        public MainWindow()
+        public TagScene()
         {
-            DataContext = new MainViewModel();
             InitializeComponent();
+            foreach (var button in TagButtonModel.GetButtonContent("SceneTags"))
+            {
+                WrapPanel.Children.Add(button);
+            }
         }
     }
 }

@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="TagPlayer.controls.TagsViewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tags="clr-namespace:TagPlayer.controls.Resource.Tags"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel Name="StackPanelTags">
+        <GroupBox BorderThickness="0" Background="Transparent" Header="地区" Margin="5" 
+                  VerticalAlignment="Top" Foreground="{StaticResource ControlButtonBrush}">
+            <tags:TagRegion Width="auto" Height="auto"></tags:TagRegion>
+        </GroupBox>
+        <GroupBox BorderThickness="0" Background="Transparent" Header="风格" Margin="5" 
+                  VerticalAlignment="Top" Foreground="{StaticResource ControlButtonBrush}">
+            <tags:TagStyle Width="auto" Height="auto"></tags:TagStyle>
+        </GroupBox>
+        <GroupBox BorderThickness="0" Background="Transparent" Header="场景" Margin="5" 
+                  VerticalAlignment="Top" Foreground="{StaticResource ControlButtonBrush}">
+            <tags:TagScene Width="auto" Height="auto"></tags:TagScene>
+        </GroupBox>
+        <GroupBox BorderThickness="0" Background="Transparent" Header="情感" Margin="5" 
+                  VerticalAlignment="Top" Foreground="{StaticResource ControlButtonBrush}">
+            <tags:TagFeeling Width="auto" Height="auto"></tags:TagFeeling>
+        </GroupBox>
+        <GroupBox BorderThickness="0" Background="Transparent" Header="主题" Margin="5" 
+                  VerticalAlignment="Top" Foreground="{StaticResource ControlButtonBrush}">
+            <tags:TagTheme Width="auto" Height="auto"></tags:TagTheme>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

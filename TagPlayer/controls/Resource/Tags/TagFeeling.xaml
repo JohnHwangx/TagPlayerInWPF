@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="TagPlayer.controls.Resource.Tags.TagFeeling"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TagPlayer.controls.Resource.Tags"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <WrapPanel Background="Transparent" x:Name="WrapPanel">
+        <!--<Button x:Name="btn_怀旧" Content="怀旧" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_清新" Content="清新" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_浪漫" Content="浪漫" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_性感" Content="性感" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_伤感" Content="伤感" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_治愈" Content="治愈" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_放松" Content="放松" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_孤独" Content="孤独" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_感动" Content="感动" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_兴奋" Content="兴奋" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_快乐" Content="快乐" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_安静" Content="安静" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
+        <Button x:Name="btn_思念" Content="思念" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>-->
+    </WrapPanel>
+</UserControl>

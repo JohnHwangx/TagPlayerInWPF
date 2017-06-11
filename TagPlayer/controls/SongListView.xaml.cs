@@ -13,17 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TagPlayer
+namespace TagPlayer.controls
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// SongListView.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SongListView : UserControl
     {
-
-        public MainWindow()
+        public SongListView()
         {
-            DataContext = new MainViewModel();
             InitializeComponent();
         }
     }

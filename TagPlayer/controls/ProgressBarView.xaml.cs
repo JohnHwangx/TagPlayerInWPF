@@ -13,17 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TagPlayer
+namespace TagPlayer.controls
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// ProgressBarView.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ProgressBarView : UserControl
     {
-
-        public MainWindow()
+        public ProgressBarView()
         {
-            DataContext = new MainViewModel();
             InitializeComponent();
         }
     }

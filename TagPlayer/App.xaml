@@ -4,6 +4,16 @@
              xmlns:local="clr-namespace:TagPlayer"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/Resource/ScrollViewer.xaml"/>
+                <ResourceDictionary Source="Controls/Resource/ControlViewResource.xaml"/>
+                <ResourceDictionary Source="Controls/Resource/TitalBarResource.xaml"/>
+                <ResourceDictionary Source="Controls/Resource/SongListResource.xaml"/>
+                <ResourceDictionary Source="Controls/Resource/PlayListResource.xaml"/>
+                <ResourceDictionary Source="Controls/Resource/TagViewsResource.xaml"/>
+                <ResourceDictionary Source="COntrols/Resource/ColorDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
