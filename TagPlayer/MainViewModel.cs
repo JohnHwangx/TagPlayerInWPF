@@ -46,6 +46,7 @@ namespace TagPlayer
         public TagsPanelViewModel TagsPanelViewModel { get; set; }
         public SongListViewModel SongListViewModel { get; set; }
         public ControlViewModel ControlViewModel { get; set; }
+        public PlayListViewModel PlayListViewModel { get; set; }
 
         public MainViewModel()
         {
@@ -54,6 +55,7 @@ namespace TagPlayer
             SongList = new List<Song>();
             TagsPanelViewModel = new TagsPanelViewModel(this);
             ControlViewModel = new ControlViewModel();
+            PlayListViewModel = new PlayListViewModel();
         }
     }
 

@@ -100,7 +100,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <!--播放列表-->
-            <local:PlayListView HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="{Binding VisibilityService.PlayListVisibility}"></local:PlayListView>
+            <local:PlayListView HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="{Binding PlayListViewModel.IsShowPlayList,Converter={StaticResource BoolVisibilityConverter}}"></local:PlayListView>
         </Grid>
     </DockPanel>
 </UserControl>

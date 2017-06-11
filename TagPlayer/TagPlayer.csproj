@@ -74,6 +74,7 @@
     <Compile Include="Model\PlayMode.cs" />
     <Compile Include="Model\SongListModel.cs" />
     <Compile Include="ViewModels\ControlViewModel.cs" />
+    <Compile Include="ViewModels\PlayListViewModel.cs" />
     <Compile Include="ViewModels\SongListViewModel.cs" />
     <Compile Include="ViewModels\TagsPanelViewModel.cs" />
     <Page Include="controls\ControlView.xaml">

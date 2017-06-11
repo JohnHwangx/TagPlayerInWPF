@@ -4,7 +4,11 @@
     <model:SongDurationConverter x:Key="SongDurationConverter"/>
     <model:BoolVisibilityConverter x:Key="BoolVisibilityConverter"/>
     <model:ReverseConverter x:Key="ReverseConverter"/>
-    
+    <model:LoopPlayConverter x:Key="LoopPlayConverter"/>
+    <model:SequentialPlayConverter x:Key="SequentialPlayConverter"/>
+    <model:SinglePlayConverter x:Key="SinglePlayConverter"/>
+    <model:RandomPlayConverter x:Key="RandomPlayConverter"/>
+
     <ControlTemplate x:Key="btnNextLastTemplate" TargetType="Button">
         <Border Cursor="Hand" x:Name="lastEllipse" Width="36" Height="36" Background="{StaticResource ControlButtonBrush}" CornerRadius="18" >
             <ContentPresenter RecognizesAccessKey="True"/>
@@ -136,10 +140,10 @@
     
     <!--播放模式样式-->
     <ControlTemplate x:Key="PlayModeTemplate" TargetType="Button">
-        <Image Name="ImgLoopPlay" Opacity="0.5" Width="30" Height="30" 
+        <Border Name="ImgLoopPlay" Opacity="0.5" Width="30" Height="30" 
                HorizontalAlignment="Left">
-            <!--<ContentPresenter RecognizesAccessKey="True"/>-->
-        </Image>
+            <ContentPresenter RecognizesAccessKey="True"/>
+        </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter TargetName="ImgLoopPlay" Property="Opacity" Value="1"/>

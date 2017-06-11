@@ -61,25 +61,22 @@
         <!--播放列表按钮-->
         <Button Template="{StaticResource btnPlayListTemplate}" Cursor="Hand" ToolTip="播放列表" 
                 DockPanel.Dock="Right" Width="55" Height="40" Margin="0,0,5,0"
-                Command="{Binding VisibilityService.ShowPlayListCommand}" 
+                Command="{Binding PlayListViewModel.ShowPlayListCommand}" 
                 FontFamily="Microsoft YaHei" FontSize="14" VerticalContentAlignment="Center" 
                 HorizontalContentAlignment="Center">
             <TextBlock Name="a" Text="{Binding SongListService.PlayListItem.Count}"/>
         </Button>
         <!--四个按钮，一个功能，需要修改-->
         <Grid DockPanel.Dock="Right" Width="30" Height="30" Margin="0,0,20,0">
-            <Button Cursor="Hand" Command="{Binding SongListService.ModeChangeCommand}" 
-                Template="{StaticResource LoopPlayTemplate}" 
-                    Visibility="{Binding SongListService.PlayModeService.LoopPlayVis}"/>
-            <Button Cursor="Hand" Command="{Binding SongListService.ModeChangeCommand}" 
-                Template="{StaticResource SinglePlayTemplate}" 
-                    Visibility="{Binding SongListService.PlayModeService.SinglePlayVis}"/>
-            <Button Cursor="Hand" Command="{Binding SongListService.ModeChangeCommand}" 
-                Template="{StaticResource SequentialPlayTemplate}" 
-                    Visibility="{Binding SongListService.PlayModeService.SequentialPlayVis}"/>
-            <Button Cursor="Hand" Command="{Binding SongListService.ModeChangeCommand}" 
-                Template="{StaticResource RandomPlayTemplate}" 
-                    Visibility="{Binding SongListService.PlayModeService.RandomPlayVis}"/>
+            <Button Cursor="Hand" Template="{StaticResource PlayModeTemplate}" Command="{Binding ControlViewModel.PlayModeChangeCommand}">
+                <Grid>
+                    <Image ToolTip="列表循环" Source="/TagPlayer;component/Image/列表循环1.png" Visibility="{Binding ControlViewModel.PlayMode,Converter={StaticResource LoopPlayConverter}}"/>
+                    <Image ToolTip="单曲循环" Source="/TagPlayer;component/Image/单曲循环1.png"
+                           Visibility="{Binding ControlViewModel.PlayMode,Converter={StaticResource SinglePlayConverter}}"/>
+                    <Image ToolTip="顺序播放" Source="/TagPlayer;component/Image/顺序播放1.png" Visibility="{Binding ControlViewModel.PlayMode,Converter={StaticResource SequentialPlayConverter}}"/>
+                    <Image ToolTip="随机播放" Source="/TagPlayer;component/Image/随机播放1.png" Visibility="{Binding ControlViewModel.PlayMode,Converter={StaticResource RandomPlayConverter}}"/>
+                </Grid>
+            </Button>
         </Grid>
         <!--进度条-->
         <DockPanel Margin="10,0,20,5" >
