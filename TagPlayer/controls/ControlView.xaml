@@ -36,13 +36,13 @@
             <Button ToolTip="{Binding SongListService.ControlService.PlayPauseToolTip}" 
                     Name="BtnPlayPause" Grid.Column="1" 
                     Template="{StaticResource btnPlayPauseTemplate}" Width="40" Height="40" 
-                    Command="{Binding SongListService.PlayPauseCommand}">
+                    Command="{Binding ControlViewModel.PlayPauseCommand}">
                 <Canvas>
-                    <Canvas Visibility="{Binding SongListService.ControlService.PlayVis}" 
+                    <Canvas Visibility="{Binding ControlViewModel.IsPlay,Converter={StaticResource BoolVisibilityConverter}}" 
                             Name="播放" Width="14" Height="20" Margin="15,10,0,0" >
                         <Polygon Fill="White" Points="0,0 0,20 14,10"/>
                     </Canvas>
-                    <Canvas Visibility="{Binding SongListService.ControlService.PauseVis }" 
+                    <Canvas Visibility="{Binding ControlViewModel.IsPlay,Converter={StaticResource ReverseConverter}}" 
                             Name="暂停" Width="14" Height="20" Margin="13,10,0,0" >
                         <Polygon Fill="White" Points="0,0 3,0 3,20 0,20"/>
                         <Polygon Fill="White" Points="11,0 14,0 14,20 11,20"/>

@@ -70,6 +70,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="converter\PlayModeConverter.cs" />
+    <Compile Include="Model\PlayMode.cs" />
     <Compile Include="Model\SongListModel.cs" />
     <Compile Include="ViewModels\ControlViewModel.cs" />
     <Compile Include="ViewModels\SongListViewModel.cs" />
@@ -180,7 +182,7 @@
     <Compile Include="controls\TagsViewControl.xaml.cs">
       <DependentUpon>TagsViewControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="converter\SongDurationConverter.cs" />
+    <Compile Include="converter\Converters.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

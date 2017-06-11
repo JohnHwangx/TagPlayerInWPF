@@ -35,7 +35,6 @@ namespace TagPlayer
             set { _playingSong = value; }
         }
 
-
         private void OnSongListChanged()
         {
             if (SongListViewModel != null)
@@ -54,6 +53,7 @@ namespace TagPlayer
 
             SongList = new List<Song>();
             TagsPanelViewModel = new TagsPanelViewModel(this);
+            ControlViewModel = new ControlViewModel();
         }
     }
 
