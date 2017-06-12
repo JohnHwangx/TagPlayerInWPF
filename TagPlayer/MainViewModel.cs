@@ -15,6 +15,8 @@ namespace TagPlayer
     {
         public SongListModel SongListModel { get; set; } = new SongListModel();
 
+        public bool IsSongListChanged { get; set; }
+
         private List<Song> _songList;
 
         public List<Song> SongList
@@ -24,6 +26,27 @@ namespace TagPlayer
             {
                 _songList = value;
                 OnSongListChanged();
+                IsSongListChanged = true;
+            }
+        }
+
+        private List<Song> _playList;
+
+        public List<Song> PlayList
+        {
+            get { return _playList; }
+            set
+            {
+                _playList = value;
+                OnPlayListChanged();
+            }
+        }
+
+        private void OnPlayListChanged()
+        {
+            if (PlayListViewModel!=null)
+            {
+                PlayListViewModel.InitialPlayList(PlayList);
             }
         }
 
@@ -32,7 +55,16 @@ namespace TagPlayer
         public Song PlayingSong
         {
             get { return _playingSong; }
-            set { _playingSong = value; }
+            set
+            {
+                _playingSong = value;
+                OnPlayingSongChanged();
+            }
+        }
+
+        private void OnPlayingSongChanged()
+        {
+            
         }
 
         private void OnSongListChanged()
@@ -50,9 +82,10 @@ namespace TagPlayer
 
         public MainViewModel()
         {
-            SongListViewModel = new SongListViewModel();
+            SongListViewModel = new SongListViewModel(this);
 
             SongList = new List<Song>();
+            PlayList = new List<Song>();
             TagsPanelViewModel = new TagsPanelViewModel(this);
             ControlViewModel = new ControlViewModel();
             PlayListViewModel = new PlayListViewModel();

@@ -57,7 +57,7 @@
                         <i:InvokeCommandAction Command="{Binding SongListService.SongListMenuItemCommand}" CommandParameter="{Binding ElementName=ListBoxSong}"></i:InvokeCommandAction>
                     </i:EventTrigger>
                     <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding SongListService.DouClickSongItemCommand}" 
+                        <i:InvokeCommandAction Command="{Binding SongListViewModel.DoubleClickSongListCommand}" 
                                                CommandParameter="{Binding ElementName=ListBoxSong}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>

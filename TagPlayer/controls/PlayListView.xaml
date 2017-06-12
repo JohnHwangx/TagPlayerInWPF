@@ -23,7 +23,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <ListBox x:Name="PlayingList" Grid.Row="0" BorderThickness="0" 
-                 ItemsSource="{Binding SongListService.PlayListItem}"
+                 ItemsSource="{Binding PlayListViewModel.DisPlayList}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
