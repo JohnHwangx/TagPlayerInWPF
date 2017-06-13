@@ -75,6 +75,27 @@ namespace TagPlayer
             }
         }
 
+        public void ChangePlayList()
+        {
+            if (IsSongListChanged)
+            {
+                IsSongListChanged = false;
+                PlayList.Clear();
+
+                //var tempList = new List<Song>();
+                //SongList.ForEach(i => tempList.Add(i));
+                PlayList = new List<Song>(SongList);
+            }
+        }
+
+        public void ChangePlayingSong(Song song)
+        {
+            if (!Equals(song, PlayingSong))
+            {
+                PlayingSong = song;
+            }
+        }
+
         public TagsPanelViewModel TagsPanelViewModel { get; set; }
         public SongListViewModel SongListViewModel { get; set; }
         public ControlViewModel ControlViewModel { get; set; }

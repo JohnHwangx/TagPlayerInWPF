@@ -9,7 +9,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="700">
     <UserControl.Resources>
-        <mode:SongDurationConverter x:Key="SongDurationConverter"></mode:SongDurationConverter>
+        <mode:SongDurationConverter x:Key="SongDurationConverter"/>
+        <mode:SongListPlayConverter x:Key="SongListPlayConverter"/>
     </UserControl.Resources>
     <DockPanel>
         <DockPanel.Background>
@@ -53,9 +54,9 @@
             <!--歌曲列表-->
             <ListBox ItemsSource="{Binding SongListViewModel.DisSongList}" x:Name="ListBoxSong" Background="{x:Null}" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Extended" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseRightButtonUp">
+                    <!--<i:EventTrigger EventName="MouseRightButtonUp">
                         <i:InvokeCommandAction Command="{Binding SongListService.SongListMenuItemCommand}" CommandParameter="{Binding ElementName=ListBoxSong}"></i:InvokeCommandAction>
-                    </i:EventTrigger>
+                    </i:EventTrigger>-->
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction Command="{Binding SongListViewModel.DoubleClickSongListCommand}" 
                                                CommandParameter="{Binding ElementName=ListBoxSong}"/>
@@ -63,10 +64,10 @@
                 </i:Interaction.Triggers>
                 <ListBox.ContextMenu>
                     <ContextMenu Name="ContextMenuSongList">
-                        <MenuItem x:Name="MenuItem播放" Header="播放" Visibility="{Binding VisibilityService.MnitPlayVisibility}"
+                        <MenuItem x:Name="MenuItem播放" Header="播放" Visibility="{Binding Path=SelectedItems.Count,ElementName=ListBoxSong,Converter={StaticResource SongListPlayConverter}}"
                                   Command="{Binding SongListService.DouClickSongItemCommand}" 
                                   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
-                        <MenuItem x:Name="MenuItem编辑" Header="编辑标签" Visibility="{Binding VisibilityService.MnitEditTagsVis}" 
+                        <MenuItem x:Name="MenuItem编辑" Header="编辑标签" Visibility="{Binding SongListViewModel.IsShow,Converter={StaticResource BoolVisibilityConverter}}" 
                                   Command="{Binding SongListService.SongListEditTagsMenuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
                         <!--非常重要-->
                         <MenuItem x:Name="MenuItem添加" Header="添加播放列表" Visibility="{Binding VisibilityService.MnitAddToPlayListVis}"

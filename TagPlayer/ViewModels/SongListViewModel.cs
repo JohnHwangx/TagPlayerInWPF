@@ -12,6 +12,19 @@ namespace TagPlayer.ViewModels
         public MainViewModel MainViewModel { get; set; }
         public SongListModel SongListModel { get; set; } = new SongListModel();
 
+        private bool _isShow;
+
+        public bool IsShow
+        {
+            get { return _isShow; }
+            set
+            {
+                _isShow = value;
+                RaisePropertyChanged("IsShow");
+            }
+        }
+
+
         private List<SongListItem> _disSongList;
 
         public List<SongListItem> DisSongList
@@ -35,25 +48,14 @@ namespace TagPlayer.ViewModels
             if (listBox.SelectedItem is SongListItem songListItem)
             {
                 var selectedSong = songListItem.Song;
-                if (!Equals(selectedSong,MainViewModel.PlayingSong))
-                {
-                    MainViewModel.PlayingSong = selectedSong;
-                }
-            }
-
-            if (MainViewModel.IsSongListChanged)
-            {
-                MainViewModel.IsSongListChanged = false;
-                MainViewModel.PlayList.Clear();
-
-                //var tempList = new List<Song>();
-                //MainViewModel.SongList.ForEach(i => tempList.Add(i));
-                MainViewModel.PlayList = new List<Song>(MainViewModel.SongList); 
+                MainViewModel.ChangePlayingSong(selectedSong);
+                MainViewModel.ChangePlayList();
             }
         }
 
         public SongListViewModel(MainViewModel mainViewModel)
         {
+            IsShow = false;
             MainViewModel = mainViewModel;
             DisSongList = new List<SongListItem>();
 

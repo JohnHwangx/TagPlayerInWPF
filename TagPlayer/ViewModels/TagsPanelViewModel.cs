@@ -10,7 +10,7 @@ using Prism.Commands;
 
 namespace TagPlayer.ViewModels
 {
-    public class TagsPanelViewModel:BindableBase
+    public class TagsPanelViewModel : BindableBase
     {
         public MainViewModel MainViewModel { get; set; }
         public SongListModel SongListModel { get; set; } = new SongListModel();
@@ -19,13 +19,26 @@ namespace TagPlayer.ViewModels
 
         private void OnLoadSongList()
         {
-            MainViewModel.SongList=SongListModel.LoadDirectorySongList();
+            MainViewModel.SongList = SongListModel.LoadDirectorySongList();
+        }
+
+        public ICommand PlaySongCommand { get; set; }
+
+        private void OnPlaySong()
+        {
+            if (MainViewModel.SongList.Any())
+            {
+                var selectedSong = MainViewModel.SongList.FirstOrDefault();
+                MainViewModel.ChangePlayingSong(selectedSong);
+                MainViewModel.ChangePlayList();
+            }
         }
 
         public TagsPanelViewModel(MainViewModel mainViewModel)
         {
-            MainViewModel=mainViewModel;
+            MainViewModel = mainViewModel;
             LoadSongListCommand = new DelegateCommand(OnLoadSongList);
+            PlaySongCommand = new DelegateCommand(OnPlaySong);
         }
     }
 }

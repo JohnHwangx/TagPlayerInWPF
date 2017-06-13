@@ -71,6 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="converter\PlayModeConverter.cs" />
+    <Compile Include="converter\SongListMenuConverter.cs" />
     <Compile Include="Model\PlayMode.cs" />
     <Compile Include="Model\SongListModel.cs" />
     <Compile Include="ViewModels\ControlViewModel.cs" />
