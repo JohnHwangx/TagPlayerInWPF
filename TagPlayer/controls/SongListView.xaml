@@ -64,15 +64,29 @@
                 </i:Interaction.Triggers>
                 <ListBox.ContextMenu>
                     <ContextMenu Name="ContextMenuSongList">
-                        <MenuItem x:Name="MenuItem播放" Header="播放" Visibility="{Binding Path=SelectedItems.Count,ElementName=ListBoxSong,Converter={StaticResource SongListPlayConverter}}"
+                        <MenuItem x:Name="MenuItem播放" Header="播放" 
                                   Command="{Binding SongListService.DouClickSongItemCommand}" 
                                   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
-                        <MenuItem x:Name="MenuItem编辑" Header="编辑标签" Visibility="{Binding SongListViewModel.IsShow,Converter={StaticResource BoolVisibilityConverter}}" 
+
+                        <MenuItem x:Name="MenuItem编辑" Header="编辑标签" 
                                   Command="{Binding SongListService.SongListEditTagsMenuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
                         <!--非常重要-->
-                        <MenuItem x:Name="MenuItem添加" Header="添加播放列表" Visibility="{Binding VisibilityService.MnitAddToPlayListVis}"
+                        <MenuItem x:Name="MenuItem添加" Header="添加播放列表" 
                                   Command="{Binding SongListService.AddPlayListCommand}" 
                                   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
+
+                        <ContextMenu.ItemContainerStyle>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count}" Value="1">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContextMenu.ItemContainerStyle>
                     </ContextMenu>
                 </ListBox.ContextMenu>
                 <ListBox.ItemTemplate >
