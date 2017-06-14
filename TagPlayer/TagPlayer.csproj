@@ -78,6 +78,7 @@
     <Compile Include="ViewModels\PlayListViewModel.cs" />
     <Compile Include="ViewModels\SongListViewModel.cs" />
     <Compile Include="ViewModels\TagsPanelViewModel.cs" />
+    <Compile Include="ViewModels\VisibilityViewModel.cs" />
     <Page Include="controls\ControlView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

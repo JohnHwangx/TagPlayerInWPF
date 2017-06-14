@@ -100,6 +100,7 @@ namespace TagPlayer
         public SongListViewModel SongListViewModel { get; set; }
         public ControlViewModel ControlViewModel { get; set; }
         public PlayListViewModel PlayListViewModel { get; set; }
+        public VisibilityViewModel VisibilityViewModel { get; set; }
 
         public MainViewModel()
         {
@@ -110,6 +111,7 @@ namespace TagPlayer
             TagsPanelViewModel = new TagsPanelViewModel(this);
             ControlViewModel = new ControlViewModel();
             PlayListViewModel = new PlayListViewModel();
+            VisibilityViewModel = new VisibilityViewModel();
         }
     }
 

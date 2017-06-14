@@ -10,7 +10,8 @@
              d:DesignHeight="700" d:DesignWidth="700">
     <UserControl.Resources>
         <mode:SongDurationConverter x:Key="SongDurationConverter"/>
-        <mode:SongListPlayConverter x:Key="SongListPlayConverter"/>
+        <mode:SongListPlay_AddConverter x:Key="SongListPlay_AddConverter"/>
+        <mode:SongListEditConverter x:Key="SongListEditConverter"/>
     </UserControl.Resources>
     <DockPanel>
         <DockPanel.Background>
@@ -55,7 +56,7 @@
             <ListBox ItemsSource="{Binding SongListViewModel.DisSongList}" x:Name="ListBoxSong" Background="{x:Null}" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Extended" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <i:Interaction.Triggers>
                     <!--<i:EventTrigger EventName="MouseRightButtonUp">
-                        <i:InvokeCommandAction Command="{Binding SongListService.SongListMenuItemCommand}" CommandParameter="{Binding ElementName=ListBoxSong}"></i:InvokeCommandAction>
+                        <i:InvokeCommandAction Command="{Binding VisibilityViewModel.SongListMenuItemCommand}" CommandParameter="{Binding ElementName=ListBoxSong}"></i:InvokeCommandAction>
                     </i:EventTrigger>-->
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction Command="{Binding SongListViewModel.DoubleClickSongListCommand}" 
@@ -63,19 +64,23 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListBox.ContextMenu>
-                    <ContextMenu Name="ContextMenuSongList">
-                        <MenuItem x:Name="MenuItem播放" Header="播放" 
+                    <ContextMenu Name="ContextMenuSongList" >
+                        <MenuItem x:Name="MenuItem播放" Header="播放"
+                                  Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count,Converter={StaticResource SongListPlay_AddConverter}}"
                                   Command="{Binding SongListService.DouClickSongItemCommand}" 
                                   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
 
-                        <MenuItem x:Name="MenuItem编辑" Header="编辑标签" 
-                                  Command="{Binding SongListService.SongListEditTagsMenuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
+                        <MenuItem x:Name="MenuItem编辑" Header="编辑标签"
+                                  Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count,Converter={StaticResource SongListEditConverter}}"
+                                  Command="{Binding SongListService.SongListEditTagsMenuCommand}" 
+                                  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
                         <!--非常重要-->
                         <MenuItem x:Name="MenuItem添加" Header="添加播放列表" 
+                                  Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count,Converter={StaticResource SongListPlay_AddConverter}}"
                                   Command="{Binding SongListService.AddPlayListCommand}" 
                                   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
 
-                        <ContextMenu.ItemContainerStyle>
+                        <!--<ContextMenu.ItemContainerStyle>
                             <Style TargetType="{x:Type MenuItem}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count}" Value="0">
@@ -86,7 +91,7 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </ContextMenu.ItemContainerStyle>
+                        </ContextMenu.ItemContainerStyle>-->
                     </ContextMenu>
                 </ListBox.ContextMenu>
                 <ListBox.ItemTemplate >
