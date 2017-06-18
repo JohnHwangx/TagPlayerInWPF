@@ -22,7 +22,7 @@
                     CommandParameter="{Binding ElementName=BtnAddSong}">添加</Button>
             <Button Grid.Column="1" Name="BtnSelect"  
                     Template="{StaticResource TagControlTemplate}" 
-                    Command="{Binding SongListService.SelectTagsCommand}">确定</Button>
+                    Command="{Binding TagsPanelViewModel.SureCommand}">确定</Button>
             <Button Grid.Column="2" Name="BtnPlay"  
                     Template="{StaticResource TagControlTemplate}" 
                     Command="{Binding TagsPanelViewModel.PlaySongCommand}">播放</Button>

@@ -44,7 +44,7 @@ namespace TagPlayer
 
         private void OnPlayListChanged()
         {
-            if (PlayListViewModel!=null)
+            if (PlayListViewModel != null)
             {
                 PlayListViewModel.InitialPlayList(PlayList);
             }
@@ -58,13 +58,14 @@ namespace TagPlayer
             set
             {
                 _playingSong = value;
+                RaisePropertyChanged("PlayingSong");
                 OnPlayingSongChanged();
             }
         }
 
         private void OnPlayingSongChanged()
         {
-            
+
         }
 
         private void OnSongListChanged()
@@ -96,11 +97,32 @@ namespace TagPlayer
             }
         }
 
+        public void AddPlayList(Song song)
+        {
+            if (PlayList != null)
+            {
+                var tempList = new List<Song>(PlayList)
+                {
+                    song
+                };
+                PlayList = tempList;
+            }
+        }
+
+        public void DeletePlayList(Song song)
+        {
+            if (PlayList != null)
+            {
+                var tempList = new List<Song>(PlayList);
+                tempList.Remove(song);
+                PlayList = tempList;
+            }
+        }
+
         public TagsPanelViewModel TagsPanelViewModel { get; set; }
         public SongListViewModel SongListViewModel { get; set; }
         public ControlViewModel ControlViewModel { get; set; }
         public PlayListViewModel PlayListViewModel { get; set; }
-        public VisibilityViewModel VisibilityViewModel { get; set; }
 
         public MainViewModel()
         {
@@ -110,8 +132,7 @@ namespace TagPlayer
             PlayList = new List<Song>();
             TagsPanelViewModel = new TagsPanelViewModel(this);
             ControlViewModel = new ControlViewModel();
-            PlayListViewModel = new PlayListViewModel();
-            VisibilityViewModel = new VisibilityViewModel();
+            PlayListViewModel = new PlayListViewModel(this);
         }
     }
 

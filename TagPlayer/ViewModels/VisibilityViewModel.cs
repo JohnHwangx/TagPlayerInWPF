@@ -1,4 +1,7 @@
-﻿using Prism.Commands;
+﻿/**
+ * 绑定右键菜单显示属性，已废除不用
+ * **/
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;

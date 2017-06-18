@@ -55,43 +55,28 @@
             <!--歌曲列表-->
             <ListBox ItemsSource="{Binding SongListViewModel.DisSongList}" x:Name="ListBoxSong" Background="{x:Null}" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Extended" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <i:Interaction.Triggers>
-                    <!--<i:EventTrigger EventName="MouseRightButtonUp">
-                        <i:InvokeCommandAction Command="{Binding VisibilityViewModel.SongListMenuItemCommand}" CommandParameter="{Binding ElementName=ListBoxSong}"></i:InvokeCommandAction>
-                    </i:EventTrigger>-->
                     <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding SongListViewModel.DoubleClickSongListCommand}" 
-                                               CommandParameter="{Binding ElementName=ListBoxSong}"/>
+                        <i:InvokeCommandAction 
+                            Command="{Binding SongListViewModel.DoubleClickCommand}"
+                            CommandParameter="{Binding ElementName=ListBoxSong}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListBox.ContextMenu>
                     <ContextMenu Name="ContextMenuSongList" >
                         <MenuItem x:Name="MenuItem播放" Header="播放"
                                   Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count,Converter={StaticResource SongListPlay_AddConverter}}"
-                                  Command="{Binding SongListService.DouClickSongItemCommand}" 
+                                  Command="{Binding SongListViewModel.PlayMenuCommand}" 
                                   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
 
                         <MenuItem x:Name="MenuItem编辑" Header="编辑标签"
                                   Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count,Converter={StaticResource SongListEditConverter}}"
-                                  Command="{Binding SongListService.SongListEditTagsMenuCommand}" 
+                                  Command="{Binding SongListViewModel.EditCommand}" 
                                   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
                         <!--非常重要-->
                         <MenuItem x:Name="MenuItem添加" Header="添加播放列表" 
                                   Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count,Converter={StaticResource SongListPlay_AddConverter}}"
-                                  Command="{Binding SongListService.AddPlayListCommand}" 
+                                  Command="{Binding SongListViewModel.AddCommand}" 
                                   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
-
-                        <!--<ContextMenu.ItemContainerStyle>
-                            <Style TargetType="{x:Type MenuItem}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count}" Value="0">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count}" Value="1">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ContextMenu.ItemContainerStyle>-->
                     </ContextMenu>
                 </ListBox.ContextMenu>
                 <ListBox.ItemTemplate >
@@ -104,23 +89,36 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                 <ColumnDefinition Width="70"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="tblcNum" Text="{Binding SongNum}" Margin="0,5,10,5" Foreground="{StaticResource ForegroundBrush}"></TextBlock>
-                            <TextBlock Grid.Column="1" x:Name="tblcTitle" ToolTip="{Binding Song.Title}" 
-                                       Text="{Binding Song.Title}" Margin="0,5,10,5"></TextBlock>
-                            <TextBlock Grid.Column="2" x:Name="tblcArtist" ToolTip="{Binding Song.Artist}" 
-                                       Text="{Binding Song.Artist}" Margin="0,5,10,5" Foreground="{StaticResource ForegroundBrush}"></TextBlock>
-                            <TextBlock Grid.Column="3" x:Name="tblcAlbum" ToolTip="{Binding Song.Album}" 
-                                       Text="{Binding Song.Album}" Margin="0,5,10,5" Foreground="{StaticResource ForegroundBrush}"></TextBlock>
+                            <TextBlock x:Name="tblcNum" 
+                                       Text="{Binding SongNum}" 
+                                       Margin="0,5,10,5" 
+                                       Foreground="{StaticResource ForegroundBrush}"/>
+                            <TextBlock Grid.Column="1" x:Name="tblcTitle" 
+                                       ToolTip="{Binding Song.Title}" 
+                                       Text="{Binding Song.Title}" Margin="0,5,10,5"/>
+                            <TextBlock Grid.Column="2" x:Name="tblcArtist" 
+                                       ToolTip="{Binding Song.Artist}" 
+                                       Text="{Binding Song.Artist}" 
+                                       Margin="0,5,10,5" 
+                                       Foreground="{StaticResource ForegroundBrush}"/>
+                            <TextBlock Grid.Column="3" x:Name="tblcAlbum" 
+                                       ToolTip="{Binding Song.Album}" 
+                                       Text="{Binding Song.Album}" 
+                                       Margin="0,5,10,5" 
+                                       Foreground="{StaticResource ForegroundBrush}"/>
                             <TextBlock Grid.Column="4" x:Name="tblcDuration" 
                                        ToolTip="{Binding Song.Duration,Converter={StaticResource SongDurationConverter}}" 
                                        Text="{Binding Song.Duration,Converter={StaticResource SongDurationConverter}}" Margin="0,5,10,5" 
-                                       Foreground="{StaticResource ForegroundBrush}" HorizontalAlignment="Right"></TextBlock>
+                                       Foreground="{StaticResource ForegroundBrush}" 
+                                       HorizontalAlignment="Right"/>
                         </Grid>
                     </HierarchicalDataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
             <!--播放列表-->
-            <local:PlayListView HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="{Binding PlayListViewModel.IsShowPlayList,Converter={StaticResource BoolVisibilityConverter}}"></local:PlayListView>
+            <local:PlayListView HorizontalAlignment="Right" 
+                                VerticalAlignment="Bottom" 
+                                Visibility="{Binding PlayListViewModel.IsShowPlayList,Converter={StaticResource ReverseConverter}}"/>
         </Grid>
     </DockPanel>
 </UserControl>

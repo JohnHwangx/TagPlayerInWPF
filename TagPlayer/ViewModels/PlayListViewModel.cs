@@ -7,11 +7,14 @@ using Prism.Mvvm;
 using System.Windows.Input;
 using Prism.Commands;
 using TagPlayer.Model;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace TagPlayer.ViewModels
 {
     public class PlayListViewModel : BindableBase
     {
+        public MainViewModel MainViewModel { get; set; }
         public SongListModel SongListModel { get; set; } = new SongListModel();
         private bool _isShowPlayList;
 
@@ -39,7 +42,7 @@ namespace TagPlayer.ViewModels
 
         public void InitialPlayList(List<Song> songList)
         {
-            DisPlayList= SongListModel.InitialSongList(songList);
+            DisPlayList = SongListModel.InitialSongList(songList);
         }
 
         public ICommand ShowPlayListCommand { get; set; }
@@ -49,10 +52,54 @@ namespace TagPlayer.ViewModels
             IsShowPlayList = !IsShowPlayList;
         }
 
-        public PlayListViewModel()
+        public DelegateCommand<ListBox> DoubleClickCommand { get; set; }
+        private void OnDoubleClick(Selector listBox)
+        {
+            if (listBox.SelectedItem is SongListItem songListItem)
+            {
+                var selectedSong = songListItem.Song;
+                MainViewModel.ChangePlayingSong(selectedSong);
+            }
+        }
+
+        public DelegateCommand<ListBox> EditCommand { get; set; }
+        private void OnEdit(Selector listBox)
+        {
+            if (listBox.SelectedItem is SongListItem songListItem)
+            {
+                //todo
+            }
+        }
+
+        public DelegateCommand<ListBox> DeleteCommand { get; set; }
+        private void OnDelete(Selector listBox)
+        {
+            if (listBox.SelectedItem is SongListItem songListItem)
+            {
+                var selectedSong = songListItem.Song;
+                MainViewModel.DeletePlayList(selectedSong);
+            }
+        }
+
+        public ICommand ClearCommand { get; set; }
+        private void OnClear()
+        {
+            if (MainViewModel.PlayList != null && MainViewModel.PlayList.Any())
+            {
+                MainViewModel.PlayList.Clear();
+            }
+        }
+
+
+        public PlayListViewModel(MainViewModel mainViewModel)
         {
             IsShowPlayList = false;
+            MainViewModel = mainViewModel;
             ShowPlayListCommand = new DelegateCommand(OnShowPlayList);
+            DoubleClickCommand = new DelegateCommand<ListBox>(OnDoubleClick);
+            EditCommand = new DelegateCommand<ListBox>(OnEdit);
+            DeleteCommand = new DelegateCommand<ListBox>(OnDelete);
+            ClearCommand = new DelegateCommand(OnClear);
         }
     }
 }

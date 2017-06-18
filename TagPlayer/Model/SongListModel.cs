@@ -9,6 +9,9 @@ using System.Windows.Media;
 
 namespace TagPlayer.Model
 {
+    /// <summary>
+    /// 歌曲加载及显示
+    /// </summary>
     public class SongListModel
     {
         //private List<Song> songList = new List<Song>();

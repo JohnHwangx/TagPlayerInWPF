@@ -22,6 +22,12 @@ namespace TagPlayer.ViewModels
             MainViewModel.SongList = SongListModel.LoadDirectorySongList();
         }
 
+        public ICommand SureCommand { get; set; }
+        private void OnSure()
+        {
+            //TODO:
+        }
+
         public ICommand PlaySongCommand { get; set; }
 
         private void OnPlaySong()
@@ -38,6 +44,7 @@ namespace TagPlayer.ViewModels
         {
             MainViewModel = mainViewModel;
             LoadSongListCommand = new DelegateCommand(OnLoadSongList);
+            SureCommand = new DelegateCommand(OnSure);
             PlaySongCommand = new DelegateCommand(OnPlaySong);
         }
     }

@@ -16,8 +16,9 @@
             <SolidColorBrush Color="AliceBlue" Opacity="0.6"/>
         </DockPanel.Background>
         <!--封面图片-->
-        <Image Name="ImgAlbum" Width="55" Height="55" Margin="2.5,0,0,0" HorizontalAlignment="Left" 
-               Source="{Binding SongListService.PlayingSong.AlbumCover}"/>
+        <Image Name="ImgAlbum" Width="55" Height="55" Margin="2.5,0,0,0" 
+               HorizontalAlignment="Left" 
+               Source="{Binding PlayingSong.AlbumCover}"/>
         <!--控制按钮-->
         <Grid Background="Transparent" Height="50" Width="150" Margin="20,0,10,0" HorizontalAlignment="Left">
             <Grid.ColumnDefinitions>
@@ -135,15 +136,26 @@
                       IsChecked="{Binding SongListService.ControlService.PlayService.IsDrag,Mode=TwoWay}"/>
             <CheckBox x:Name="IsChangeBox" Visibility="Collapsed"
                       IsChecked="{Binding SongListService.ControlService.PlayService.IsChanged,Mode=TwoWay}"/>
-            <TextBlock x:Name="LblTitle" Text="{Binding SongListService.PlayingSong.Title,StringFormat=\{0\} - }" Margin="0,5,0,0" VerticalAlignment="Top" FontSize="13.333" HorizontalAlignment="Left" MaxWidth="100"/>
-            <TextBlock x:Name="LblArtist" Text="{Binding SongListService.PlayingSong.Artist}" 
+            
+            <TextBlock x:Name="LblTitle" 
+                       Text="{Binding PlayingSong.Title}" 
                        Margin="0,5,0,0" VerticalAlignment="Top" FontSize="13.333" 
-                       Foreground="{StaticResource ForegroundBrush}" HorizontalAlignment="Left" MaxWidth="100"/>
-            <TextBlock x:Name="LblDuration" 
-                       Text="{Binding SongListService.PlayingSong.Duration,Converter={StaticResource SongDurationConverter}}" 
-                       Margin="0,5,0,0" FontSize="10.667" HorizontalAlignment="Right" DockPanel.Dock="Right" Foreground="{StaticResource ForegroundBrush}"/>
-            <TextBlock x:Name="LblCurrentPosition" 
-                       Text="{Binding SongListService.ControlService.PlayService.Rate,Mode=TwoWay}" Margin="0,5,0,0" FontSize="10.667" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                       HorizontalAlignment="Left" MaxWidth="100"/>
+            <TextBlock Margin="0,5,0,0" HorizontalAlignment="Left" 
+                       VerticalAlignment="Top"> — </TextBlock>
+            <TextBlock x:Name="LblArtist" 
+                       Text="{Binding PlayingSong.Artist}" 
+                       Margin="0,5,0,0" VerticalAlignment="Top" FontSize="13.333" 
+                       Foreground="{StaticResource ForegroundBrush}" 
+                       HorizontalAlignment="Left" MaxWidth="100"/>
+            <TextBlock x:Name="LblDuration"                       
+                       Text="{Binding PlayingSong.Duration,Converter={StaticResource SongDurationConverter}}" 
+                       Margin="0,5,0,0" FontSize="10.667" HorizontalAlignment="Right" 
+                       DockPanel.Dock="Right" Foreground="{StaticResource ForegroundBrush}"/>
+            <TextBlock x:Name="LblCurrentPosition"                       
+                       Text="{Binding ControlService.PlayService.Rate,Mode=TwoWay}" 
+                       Margin="0,5,0,0" FontSize="10.667" HorizontalAlignment="Right" 
+                       DockPanel.Dock="Right"/>
             <!--<TextBlock Text="{Binding SongListService.PlayService.Rate,Mode=TwoWay}" Margin="0,5,0,0" FontSize="10.667" HorizontalAlignment="Right" DockPanel.Dock="Right"/>-->
         </DockPanel>
     </DockPanel>

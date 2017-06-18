@@ -42,8 +42,8 @@ namespace TagPlayer.ViewModels
             DisSongList = SongListModel.InitialSongList(songList);
         }
 
-        public DelegateCommand<ListBox> DoubleClickSongListCommand { get; set; }
-        private void OnDoubleClickSongList(Selector listBox)
+        public DelegateCommand<ListBox> DoubleClickCommand { get; set; }
+        private void OnDoubleClick(Selector listBox)
         {
             if (listBox.SelectedItem is SongListItem songListItem)
             {
@@ -53,13 +53,33 @@ namespace TagPlayer.ViewModels
             }
         }
 
+        public DelegateCommand<ListBox> PlayMenuCommand { get; set; }
+        public DelegateCommand<ListBox> EditCommand { get; set; }
+        private void OnEdit(Selector listBox)
+        {
+            //TODO:
+        }
+        public DelegateCommand<ListBox> AddCommand { get; set; }
+
+        private void OnAdd(Selector listBox)
+        {
+            if (listBox.SelectedItem is SongListItem songListItem)
+            {
+                var selectedSong = songListItem.Song;
+                MainViewModel.AddPlayList(selectedSong);
+            }
+        }
+
         public SongListViewModel(MainViewModel mainViewModel)
         {
             IsShow = false;
             MainViewModel = mainViewModel;
             DisSongList = new List<SongListItem>();
 
-            DoubleClickSongListCommand = new DelegateCommand<ListBox>(OnDoubleClickSongList);
+            DoubleClickCommand = new DelegateCommand<ListBox>(OnDoubleClick);
+            PlayMenuCommand = new DelegateCommand<ListBox>(OnDoubleClick);
+            EditCommand = new DelegateCommand<ListBox>(OnEdit);
+            AddCommand = new DelegateCommand<ListBox>(OnAdd);
         }
     }
 }

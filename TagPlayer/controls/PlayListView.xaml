@@ -27,16 +27,11 @@
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding SongListService.DoubleClickPlayingListCommand}" CommandParameter="{Binding ElementName=PlayingList}"></i:InvokeCommandAction>
+                    <i:InvokeCommandAction 
+                        Command="{Binding PlayListViewModel.DoubleClickCommand}" 
+                        CommandParameter="{Binding ElementName=PlayingList}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            <!--<ListBox.Resources>
-                        <ResourceDictionary>
-                            <ResourceDictionary.MergedDictionaries>
-                                <ResourceDictionary Source="CommonResource/ScrollViewer.xaml"/>
-                            </ResourceDictionary.MergedDictionaries>
-                        </ResourceDictionary>
-                    </ListBox.Resources>-->
             <ListBox.ItemTemplate>
                 <HierarchicalDataTemplate>
                     <Grid Background="{Binding Color}">
@@ -47,7 +42,12 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" x:Name="tblcTitle" ToolTip="{Binding Song.Title}" Text="{Binding Song.Title}" Margin="0,5,10,5"></TextBlock>
                         <TextBlock Grid.Column="1" x:Name="tblcArtist" ToolTip="{Binding Song.Artist}" Text="{Binding Song.Artist}" Margin="0,5,10,5" Foreground="{StaticResource ForegroundBrush}"></TextBlock>
-                        <TextBlock Grid.Column="2" x:Name="tblcDuration" ToolTip="{Binding Song.Duration}" Text="{Binding Song.Duration}" Margin="0,5,15,5" Foreground="{StaticResource ForegroundBrush}"></TextBlock>
+                        <TextBlock Grid.Column="2" 
+                                   x:Name="tblcDuration" 
+                                   ToolTip="{Binding Song.Duration}" 
+                                   Text="{Binding Song.Duration}" 
+                                   Margin="0,5,15,5" 
+                                   Foreground="{StaticResource ForegroundBrush}"/>
                     </Grid>
                 </HierarchicalDataTemplate>
             </ListBox.ItemTemplate>
@@ -57,13 +57,13 @@
             <ListBox.ContextMenu>
                 <ContextMenu Name="ContextMenuPlayList">
                     <MenuItem x:Name="MenuItemPlayList播放" Header="播放" 
-                              Command="{Binding SongListService.DoubleClickPlayingListCommand}"
+                              Command="{Binding PlayListViewModel.DoubleClickCommand}"
                               CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
                     <MenuItem x:Name="MenuItemPlayList编辑" Header="编辑标签" 
-                              Command="{Binding SongListService.SongListEditTagsMenuCommand}" 
+                              Command="{Binding PlayListViewModel.SongListEditTagsMenuCommand}" 
                               CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
                     <MenuItem x:Name="MenuItemPlayList删除" Header="从列表删除"
-                              Command="{Binding SongListService.DelPlayListCommand}"
+                              Command="{Binding PlayListViewModel.DeleteCommand}"
                               CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
                 </ContextMenu>
             </ListBox.ContextMenu>
@@ -76,7 +76,7 @@
                 </LinearGradientBrush>
             </Grid.Background>
             <Button x:Name="BtnClosePlayList" Template="{StaticResource PlayListButtonTemplate}" 
-                    Command="{Binding VisibilityService.CancelCommand}"
+                    Command="{Binding PlayListViewModel.ShowPlayListCommand}"
                     Content="取消" HorizontalAlignment="Right" Margin="383,15,15,0" VerticalAlignment="Top" Width="75"/>
             <Button x:Name="BtnClearPlayList" Template="{StaticResource PlayListButtonTemplate}" 
                     Command="{Binding SongListService.ClearCommand}"
