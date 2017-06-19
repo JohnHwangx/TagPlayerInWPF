@@ -9,6 +9,9 @@ namespace TagPlayer.ViewModels
 {
     public class SongListViewModel : BindableBase
     {
+        /// <summary>
+        /// 为了改变PlayList而加入
+        /// </summary>
         public MainViewModel MainViewModel { get; set; }
         public SongListModel SongListModel { get; set; } = new SongListModel();
 

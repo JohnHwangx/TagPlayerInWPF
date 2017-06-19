@@ -85,6 +85,7 @@
     <Compile Include="converter\PlayModeConverter.cs" />
     <Compile Include="converter\SongListMenuConverter.cs" />
     <Compile Include="Model\DbOperator.cs" />
+    <Compile Include="Model\PlayingSongOperator.cs" />
     <Compile Include="Model\PlayMode.cs" />
     <Compile Include="Model\SongListModel.cs" />
     <Compile Include="ViewModels\ControlViewModel.cs" />

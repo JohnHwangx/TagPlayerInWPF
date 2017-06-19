@@ -12,6 +12,11 @@ namespace TagPlayer.ViewModels
 {
     public class ControlViewModel : BindableBase
     {
+        public PlayingSongOperator PlayingSongOperator { get; set; }
+        /// <summary>
+        /// 为了改变PlayingSong而加入
+        /// </summary>
+        public MainViewModel MainViewModel { get; set; }
         private Song PlayingSong { get; set; }
 
         private bool _isPlay;
@@ -59,6 +64,7 @@ namespace TagPlayer.ViewModels
                     break;
                 case PlayMode.SequentialPlay:
                     PlayMode = PlayMode.RandomPlay;
+
                     break;
                 case PlayMode.RandomPlay:
                     PlayMode = PlayMode.LoopPlay;
@@ -71,18 +77,21 @@ namespace TagPlayer.ViewModels
         public ICommand NextCommand { get; set; }
         private void OnNext()
         {
-            //TODO:
+            MainViewModel.PlayingSong = PlayingSongOperator.OnNextExecute(PlayMode, MainViewModel.PlayList, MainViewModel.PlayList.IndexOf(MainViewModel.PlayingSong));
         }
 
         public ICommand LastCommand { get; set; }
         private void OnLast()
         {
-            //TODO:
+            MainViewModel.PlayingSong = PlayingSongOperator.OnLastExecute(PlayMode, MainViewModel.PlayList, MainViewModel.PlayList.IndexOf(MainViewModel.PlayingSong));
         }
 
-        public ControlViewModel()
+        public ControlViewModel(MainViewModel mainViewModel)
         {
             IsPlay = false;
+            MainViewModel = mainViewModel;
+            PlayingSongOperator = new PlayingSongOperator();
+
             PlayPauseCommand = new DelegateCommand(OnPlayPause);
             NextCommand = new DelegateCommand(OnNext);
             LastCommand = new DelegateCommand(OnLast);

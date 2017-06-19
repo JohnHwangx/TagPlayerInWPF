@@ -13,8 +13,7 @@ namespace TagPlayer
 {
     public class MainViewModel : BindableBase
     {
-        public SongListModel SongListModel { get; set; } = new SongListModel();
-
+        //public PlayingSongOperator PlayingSongOperator { get; set; } = new PlayingSongOperator();
         public bool IsSongListChanged { get; set; }
 
         private List<Song> _songList;
@@ -131,7 +130,7 @@ namespace TagPlayer
             SongList = new List<Song>();
             PlayList = new List<Song>();
             TagsPanelViewModel = new TagsPanelViewModel(this);
-            ControlViewModel = new ControlViewModel();
+            ControlViewModel = new ControlViewModel(this);
             PlayListViewModel = new PlayListViewModel(this);
         }
     }
