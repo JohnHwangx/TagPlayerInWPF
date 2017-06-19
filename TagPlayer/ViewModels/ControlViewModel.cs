@@ -68,10 +68,24 @@ namespace TagPlayer.ViewModels
             }
         }
 
+        public ICommand NextCommand { get; set; }
+        private void OnNext()
+        {
+            //TODO:
+        }
+
+        public ICommand LastCommand { get; set; }
+        private void OnLast()
+        {
+            //TODO:
+        }
+
         public ControlViewModel()
         {
             IsPlay = false;
             PlayPauseCommand = new DelegateCommand(OnPlayPause);
+            NextCommand = new DelegateCommand(OnNext);
+            LastCommand = new DelegateCommand(OnLast);
             PlayModeChangeCommand = new DelegateCommand(OnPlayModeChanged);
         }
     }

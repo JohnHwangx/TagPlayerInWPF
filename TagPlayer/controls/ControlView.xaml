@@ -28,7 +28,7 @@
             </Grid.ColumnDefinitions>
             <Button  x:Name="btn_PlayLast" ToolTip="上一曲" Grid.Column="0" 
                      Template="{DynamicResource btnNextLastTemplate}" Width="36" Height="36"
-                     Command="{Binding SongListService.LastCommand}">
+                     Command="{Binding ControlViewModel.LastCommand}">
                 <Canvas Width="12" Height="14">
                     <Polygon Fill="White" Points="0,0 2,0 2,14 0,14" />
                     <Polygon Fill="White" Points="4,7 12,0 12,14"/>
@@ -52,7 +52,7 @@
             </Button>
             <Button x:Name="btn_PlayNext" ToolTip="下一曲" Grid.Column="2" 
                     Template="{StaticResource btnNextLastTemplate}"
-                    Command="{Binding SongListService.NextCommand}">
+                    Command="{Binding ControlViewModel.NextCommand}">
                 <Canvas Width="12" Height="14">
                     <Polygon Fill="White" Points="10,0 12,0 12,14 10,14"/>
                     <Polygon Fill="White" Points="0,0 0,14 8,7"/>
