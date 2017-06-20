@@ -57,14 +57,14 @@ namespace TagPlayer
             set
             {
                 _playingSong = value;
-                RaisePropertyChanged("PlayingSong");
                 OnPlayingSongChanged();
+                RaisePropertyChanged("PlayingSong");
             }
         }
 
         private void OnPlayingSongChanged()
         {
-
+            PlayingSong.LoadAlbum();
         }
 
         private void OnSongListChanged()

@@ -139,6 +139,14 @@ namespace TagPlayer.Model
             return false;
         }
 
+        public void LoadAlbum()
+        {
+            if (AlbumCover == null)
+            {
+                AlbumCover = SongModel.GetAlbumCover(Path);
+            }
+        }
+
         public override int GetHashCode()
         {
             return 0;

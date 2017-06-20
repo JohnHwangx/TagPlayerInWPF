@@ -8,6 +8,23 @@ namespace TagPlayer.Model
 {
     public class PlayingSongOperator
     {
+        private bool _isPlayingListChanged;
+
+        public bool IsPlayingListChanged
+        {
+            get { return _isPlayingListChanged; }
+            set
+            {
+                _isPlayingListChanged = value;
+                ChangeRandomeList();
+            }
+        }
+
+        private void ChangeRandomeList()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<int> RandomNumList { get; set; }
         public Song GetNextSong(PlayMode playMode, List<Song> playingList, int songIndex)
         {
