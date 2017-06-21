@@ -46,6 +46,7 @@ namespace TagPlayer
             if (PlayListViewModel != null)
             {
                 PlayListViewModel.InitialPlayList(PlayList);
+                ControlViewModel.PlayingSongOperator.IsPlayingListChanged = true;
             }
         }
 

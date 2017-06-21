@@ -82,6 +82,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="controls\TagsEditingWindow.xaml.cs">
+      <DependentUpon>TagsEditingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="converter\PlayModeConverter.cs" />
     <Compile Include="converter\SongListMenuConverter.cs" />
     <Compile Include="Model\DbOperator.cs" />
@@ -149,6 +152,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="controls\SongListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\TagsEditingWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

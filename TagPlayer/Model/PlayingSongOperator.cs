@@ -8,23 +8,7 @@ namespace TagPlayer.Model
 {
     public class PlayingSongOperator
     {
-        private bool _isPlayingListChanged;
-
-        public bool IsPlayingListChanged
-        {
-            get { return _isPlayingListChanged; }
-            set
-            {
-                _isPlayingListChanged = value;
-                ChangeRandomeList();
-            }
-        }
-
-        private void ChangeRandomeList()
-        {
-            throw new NotImplementedException();
-        }
-
+        public bool IsPlayingListChanged { get; set; }
         public List<int> RandomNumList { get; set; }
         public Song GetNextSong(PlayMode playMode, List<Song> playingList, int songIndex)
         {
@@ -41,6 +25,11 @@ namespace TagPlayer.Model
                         ? null
                         : playingList[++songIndex];
                 case PlayMode.RandomPlay:
+                    if (IsPlayingListChanged)
+                    {
+                        GetRandomList(playingList.Count);
+                        IsPlayingListChanged = false;
+                    }
                     var randomNum = RandomNumList.IndexOf(songIndex);
                     return randomNum == playingList.Count - 1
                         ? playingList[0]
@@ -60,6 +49,11 @@ namespace TagPlayer.Model
                         ? playingList[0]
                         : playingList[++songIndex];
                 case PlayMode.RandomPlay:
+                    if (IsPlayingListChanged)
+                    {
+                        GetRandomList(playingList.Count);
+                        IsPlayingListChanged = false;
+                    }
                     var randomNum = RandomNumList.IndexOf(songIndex);
                     return randomNum == playingList.Count - 1
                         ? playingList[RandomNumList[0]]
@@ -78,6 +72,11 @@ namespace TagPlayer.Model
                 case PlayMode.SequentialPlay:
                     return songIndex == 0 ? playingList[playingList.Count - 1] : playingList[--songIndex];
                 case PlayMode.RandomPlay:
+                    if (IsPlayingListChanged)
+                    {
+                        GetRandomList(playingList.Count);
+                        IsPlayingListChanged = false;
+                    }
                     var randomNum = RandomNumList.IndexOf(songIndex);
                     return randomNum == 0
                         ? playingList[RandomNumList[playingList.Count - 1]]
@@ -85,6 +84,25 @@ namespace TagPlayer.Model
                 default:
                     throw new ArgumentOutOfRangeException(nameof(playMode), playMode, null);
             }
+        }
+
+        public void GetRandomList(int num)
+        {
+            var randomNumList = new int[num];
+            for (int i = 0; i < num; i++)
+            {
+                randomNumList[i] = i;
+            }
+
+            Random randomNumbers = new Random();
+            for (int i = 0; i < num; i++)
+            {
+                int randomNum = randomNumbers.Next(num);
+                var temp = randomNumList[i];
+                randomNumList[i] = randomNumList[randomNum];
+                randomNumList[randomNum] = temp;
+            }
+            RandomNumList = new List<int>(randomNumList);
         }
 
         public List<int> GetRandomList(List<Song> playingList)

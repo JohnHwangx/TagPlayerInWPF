@@ -64,10 +64,6 @@ namespace TagPlayer.ViewModels
                     break;
                 case PlayMode.SequentialPlay:
                     PlayMode = PlayMode.RandomPlay;
-                    if (PlayingSongOperator.)
-                    {
-
-                    }
                     break;
                 case PlayMode.RandomPlay:
                     PlayMode = PlayMode.LoopPlay;
