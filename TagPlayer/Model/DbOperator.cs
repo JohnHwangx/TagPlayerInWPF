@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace TagPlayer.Model
 {
-    class DbOperator
+    public class DbOperator
     {
         private const string StrConn = @"Data Source=..\..\Database\PlayerDb.db;Version=3;";
         private static readonly SQLiteConnection Conn = new SQLiteConnection(StrConn);
 
-        public bool IsExistDb(string dbName)
+        public static bool IsExistDb(string dbName)
         {
             if (File.Exists($@"..\..\Database\{dbName}.db"))
             {
@@ -23,7 +23,7 @@ namespace TagPlayer.Model
             return false;
         }
 
-        public bool IsExistTable(string tableName)
+        public static bool IsExistTable(string tableName)
         {
             if (Conn.State != ConnectionState.Open)
             {
@@ -43,12 +43,13 @@ namespace TagPlayer.Model
             return false;
         }
 
-        public void CreateDb(string dbName)
+        public static void CreateDb(string dbName)
         {
+            Directory.CreateDirectory($@"..\..\Database");
             SQLiteConnection.CreateFile($@"..\..\Database\{dbName}.db");
         }
 
-        public void CreateTable(string dbName, string tableName, string columnName)
+        public static void CreateTable(string dbName, string tableName, string columnName)
         {
             if (Conn.State != ConnectionState.Open)
             {
@@ -60,7 +61,7 @@ namespace TagPlayer.Model
             comm.Dispose();
         }
 
-        public void InsertTable(string dbName, string tableName, string columnName, string parameter)
+        public static void InsertTable(string dbName, string tableName, string columnName, string parameter)
         {
             if (Conn.State != ConnectionState.Open)
             {
@@ -73,7 +74,7 @@ namespace TagPlayer.Model
             comm.Dispose();
         }
 
-        public SQLiteDataReader TableDataReader(string dbName, string select)
+        public static SQLiteDataReader TableDataReader(string dbName, string select)
         {
             if (Conn.State != ConnectionState.Open)
             {
@@ -86,12 +87,12 @@ namespace TagPlayer.Model
             return dataReader;
         }
 
-        public string EscConvertor(string s)
+        public static string EscConvertor(string s)
         {
             return s.Replace("'", "''");
         }
 
-        public void ClearTable(string dbName, string tableName)
+        public static void ClearTable(string dbName, string tableName)
         {
             if (Conn.State != ConnectionState.Open)
             {

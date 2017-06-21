@@ -13,7 +13,7 @@ namespace TagPlayer.ViewModels
     public class TagsPanelViewModel : BindableBase
     {
         public MainViewModel MainViewModel { get; set; }
-        public SongListModel SongListModel { get; set; } = new SongListModel();
+        //public SongListModel SongListModel { get; set; } = new SongListModel();
 
         public ICommand LoadSongListCommand { get; set; }
 

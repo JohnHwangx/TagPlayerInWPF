@@ -7,24 +7,34 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel Name="StackPanelTags">
-        <GroupBox BorderThickness="0" Background="Transparent" Header="地区" Margin="5" 
-                  VerticalAlignment="Top" Foreground="{StaticResource ControlButtonBrush}">
+        <GroupBox BorderThickness="0" Background="Transparent" Header="地区" 
+                  Margin="5" 
+                  VerticalAlignment="Top" 
+                  Foreground="{StaticResource ControlButtonBrush}">
             <tags:TagRegion Width="auto" Height="auto"></tags:TagRegion>
         </GroupBox>
-        <GroupBox BorderThickness="0" Background="Transparent" Header="风格" Margin="5" 
-                  VerticalAlignment="Top" Foreground="{StaticResource ControlButtonBrush}">
+        <GroupBox BorderThickness="0" Background="Transparent" 
+                  Header="风格" Margin="5" 
+                  VerticalAlignment="Top" 
+                  Foreground="{StaticResource ControlButtonBrush}">
             <tags:TagStyle Width="auto" Height="auto"></tags:TagStyle>
         </GroupBox>
-        <GroupBox BorderThickness="0" Background="Transparent" Header="场景" Margin="5" 
-                  VerticalAlignment="Top" Foreground="{StaticResource ControlButtonBrush}">
+        <GroupBox BorderThickness="0" Background="Transparent" 
+                  Header="场景" Margin="5" 
+                  VerticalAlignment="Top" 
+                  Foreground="{StaticResource ControlButtonBrush}">
             <tags:TagScene Width="auto" Height="auto"></tags:TagScene>
         </GroupBox>
-        <GroupBox BorderThickness="0" Background="Transparent" Header="情感" Margin="5" 
-                  VerticalAlignment="Top" Foreground="{StaticResource ControlButtonBrush}">
+        <GroupBox BorderThickness="0" Background="Transparent" 
+                  Header="情感" Margin="5" 
+                  VerticalAlignment="Top" 
+                  Foreground="{StaticResource ControlButtonBrush}">
             <tags:TagFeeling Width="auto" Height="auto"></tags:TagFeeling>
         </GroupBox>
-        <GroupBox BorderThickness="0" Background="Transparent" Header="主题" Margin="5" 
-                  VerticalAlignment="Top" Foreground="{StaticResource ControlButtonBrush}">
+        <GroupBox BorderThickness="0" Background="Transparent" 
+                  Header="主题" Margin="5" 
+                  VerticalAlignment="Top" 
+                  Foreground="{StaticResource ControlButtonBrush}">
             <tags:TagTheme Width="auto" Height="auto"></tags:TagTheme>
         </GroupBox>
     </StackPanel>

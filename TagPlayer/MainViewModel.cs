@@ -128,7 +128,7 @@ namespace TagPlayer
         {
             SongListViewModel = new SongListViewModel(this);
 
-            SongList = new List<Song>();
+            SongList = SongListModel.GetSongsDb();
             PlayList = new List<Song>();
             TagsPanelViewModel = new TagsPanelViewModel(this);
             ControlViewModel = new ControlViewModel(this);

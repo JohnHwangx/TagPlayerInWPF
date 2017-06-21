@@ -94,6 +94,7 @@
     <Compile Include="ViewModels\ControlViewModel.cs" />
     <Compile Include="ViewModels\PlayListViewModel.cs" />
     <Compile Include="ViewModels\SongListViewModel.cs" />
+    <Compile Include="ViewModels\TagEditViewModel.cs" />
     <Compile Include="ViewModels\TagsPanelViewModel.cs" />
     <Page Include="controls\ControlView.xaml">
       <Generator>MSBuild:Compile</Generator>

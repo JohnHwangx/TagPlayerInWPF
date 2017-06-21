@@ -3,6 +3,7 @@ using Prism.Mvvm;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using TagPlayer.controls;
 using TagPlayer.Model;
 
 namespace TagPlayer.ViewModels
@@ -13,7 +14,7 @@ namespace TagPlayer.ViewModels
         /// 为了改变PlayList而加入
         /// </summary>
         public MainViewModel MainViewModel { get; set; }
-        public SongListModel SongListModel { get; set; } = new SongListModel();
+        //public SongListModel SongListModel { get; set; } = new SongListModel();
 
         private bool _isShow;
 
@@ -60,7 +61,21 @@ namespace TagPlayer.ViewModels
         public DelegateCommand<ListBox> EditCommand { get; set; }
         private void OnEdit(Selector listBox)
         {
-            //TODO:
+            var songListItem = listBox.SelectedItem as SongListItem;
+            if (songListItem == null) return;
+            var selectedSong = songListItem.Song;
+
+            var tagEditViewModel = new TagEditViewModel(selectedSong);
+            var tagEditWindow = new TagsEditingWindow()
+            {
+                DataContext = tagEditViewModel
+            };
+            tagEditWindow.ShowDialog();
+
+            if (tagEditWindow.DialogResult != true) return;
+            SongListModel.ClearSongTags(songListItem.Song);//将数据库中该歌曲的标签清空
+            selectedSong.Tags = new List<string>(tagEditViewModel.SongTags);
+            SongListModel.SaveSongTags(songListItem.Song);
         }
         public DelegateCommand<ListBox> AddCommand { get; set; }
 
