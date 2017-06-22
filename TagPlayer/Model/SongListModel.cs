@@ -13,7 +13,7 @@ namespace TagPlayer.Model
     /// <summary>
     /// 歌曲加载及显示
     /// </summary>
-    public class SongListModel:DbOperator
+    public class SongListModel : DbOperator
     {
         private const string DbName = "PlayerDb";
         private const string TableName = "SongList";
@@ -33,7 +33,7 @@ namespace TagPlayer.Model
                 else if (Directory.Exists(path) &&
                     (new DirectoryInfo(path).Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                 {
-                    LoadSongs(path,songList);
+                    LoadSongs(path, songList);
                 }
             }
         }
@@ -50,7 +50,7 @@ namespace TagPlayer.Model
             {
                 if (dirChooser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    LoadSongs(dirChooser.SelectedPath ,songList);
+                    LoadSongs(dirChooser.SelectedPath, songList);
                 }
             }
             SaveSongsDb(songList);
@@ -195,6 +195,50 @@ namespace TagPlayer.Model
 
             var clearSql = string.Join(",", song.Tags.Select(i => "[" + i + "]=0"));
             UpdateTable(DbName, TableName, clearSql, song.Path);
+        }
+
+        /// <summary>
+        /// 获取满足标签的歌曲
+        /// </summary>
+        public static List<Song> GetSelectedSongs(List<string> selectedTags)
+        {
+            var songList = new List<Song>();
+            if (!IsExistDb(DbName) || !IsExistTable(TableName))
+            {
+                return songList;
+            }
+            string selectSql;
+            if (selectedTags.Count == 0 || selectedTags == null)
+            {
+                selectSql = $"select * from {TableName}";
+            }
+            else
+            {
+                selectSql = $"select * from {TableName} where {string.Join(" and ", selectedTags.Select(i => "[" + i + "]=1"))}";
+            }
+            var dataReader = TableDataReader(DbName, selectSql);
+            while (dataReader.Read())
+            {
+                var tagList = new List<string>();
+                for (int i = 4; i < dataReader.FieldCount; i++)
+                {
+                    if (dataReader[i].ToString().Equals("True"))
+                    {
+                        tagList.Add(dataReader.GetName(i));
+                    }
+                }
+                songList.Add(new Song
+                {
+                    Path = dataReader[0].ToString().Trim(),
+                    Title = dataReader[1].ToString().Trim(),
+                    Artist = dataReader[2].ToString().Trim(),
+                    Album = dataReader[3].ToString().Trim(),
+                    Duration = dataReader[4].ToString().Trim(),
+                    Tags = tagList
+                });
+            }
+            dataReader.Dispose();
+            return songList;
         }
     }
 }

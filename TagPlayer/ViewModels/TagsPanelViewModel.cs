@@ -7,6 +7,7 @@ using Prism.Mvvm;
 using TagPlayer.Model;
 using System.Windows.Input;
 using Prism.Commands;
+using System.Windows.Controls;
 
 namespace TagPlayer.ViewModels
 {
@@ -25,7 +26,7 @@ namespace TagPlayer.ViewModels
         public ICommand SureCommand { get; set; }
         private void OnSure()
         {
-            //TODO:
+            MainViewModel.SongList = SongListModel.GetSelectedSongs(TagButtonModel.Instance.SongTags);
         }
 
         public ICommand PlaySongCommand { get; set; }
@@ -40,12 +41,24 @@ namespace TagPlayer.ViewModels
             }
         }
 
+        public DelegateCommand<Button> SelectTagsCommand { get; set; }
+        /// <summary>
+        /// 确认选中的标签，在歌曲列表显示包含选中标签的歌曲
+        /// </summary>
+        private void OnSelectTags(Button button)
+        {
+            //Songs.SongList.Clear();
+            TagButtonModel.Instance.SetTagModel(ref button);
+            //MainViewModel.SongList = SongListModel.GetSelectedSongs(TagButtonModel.Instance.SongTags);
+        }
+
         public TagsPanelViewModel(MainViewModel mainViewModel)
         {
             MainViewModel = mainViewModel;
             LoadSongListCommand = new DelegateCommand(OnLoadSongList);
             SureCommand = new DelegateCommand(OnSure);
             PlaySongCommand = new DelegateCommand(OnPlaySong);
+            SelectTagsCommand = new DelegateCommand<Button>(OnSelectTags);
         }
     }
 }

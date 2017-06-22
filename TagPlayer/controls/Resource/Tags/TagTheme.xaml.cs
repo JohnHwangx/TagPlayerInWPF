@@ -24,7 +24,7 @@ namespace TagPlayer.controls.Resource.Tags
         public TagTheme()
         {
             InitializeComponent();
-            foreach (var button in TagButtonModel.GetButtonContent("ThemeTags"))
+            foreach (var button in TagButtonModel.Instance.GetButtonContent("ThemeTags"))
             {
                 WrapPanel.Children.Add(button);
             }

@@ -12,9 +12,20 @@ using System.Xml.Linq;
 
 namespace TagPlayer.Model
 {
-    public class TagButtonModel:Window
+    public class TagButtonModel : Window
     {
-        public static List<Button> GetButtonContent(string categoryName)
+        private static TagButtonModel _instance;
+
+        public static TagButtonModel Instance
+        {
+            get { return _instance??(_instance=new TagButtonModel()); }
+        }
+
+        private TagButtonModel()
+        {
+            SongTags = new List<string>();
+        }
+        public List<Button> GetButtonContent(string categoryName)
         {
             var path = @"..\..\Image\SongTags.xml";
             var xDoc = XDocument.Load(path.ToString());
@@ -32,7 +43,7 @@ namespace TagPlayer.Model
             }
             return buttonList;
         }
-        private static Button CreateButton(string content, int count)
+        private Button CreateButton(string content, int count)
         {
             var window = new Window();
             var button = new Button
@@ -47,9 +58,27 @@ namespace TagPlayer.Model
                 Template = window.FindResource("TagsButtonTemplate") as ControlTemplate,
                 //TODO 添加Command和CommandParameter
             };
-            button.SetBinding(ButtonBase.CommandProperty, new Binding("SongListService.SelectTagCommand"));
+            button.SetBinding(ButtonBase.CommandProperty, new Binding("TagsPanelViewModel.SelectTagCommand"));
             button.SetBinding(ButtonBase.CommandParameterProperty, new Binding { Source = button });
             return button;
+        }
+
+        public List<string> SongTags { get; set; }
+
+        public void SetTagModel(ref Button button)
+        {
+            if (button.FontWeight == FontWeights.Normal)
+            {
+                button.FontWeight = FontWeights.Bold;
+                button.Foreground = FindResource("MouseOverBrush") as SolidColorBrush;
+                SongTags.Add(button.Content.ToString());
+            }
+            else if (button.FontWeight == FontWeights.Bold)
+            {
+                button.FontWeight = FontWeights.Normal;
+                button.Foreground = FindResource("ForegroundBrush") as SolidColorBrush;
+                SongTags.RemoveAt(SongTags.IndexOf(button.Content.ToString()));
+            }
         }
     }
 }

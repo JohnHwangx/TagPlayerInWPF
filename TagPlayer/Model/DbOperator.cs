@@ -105,7 +105,7 @@ namespace TagPlayer.Model
             comm.Dispose();
         }
 
-        public void UpdateTable(string dbName, string tableName, string param, string path)
+        public static void UpdateTable(string dbName, string tableName, string param, string path)
         {
             if (Conn.State != ConnectionState.Open)
             {

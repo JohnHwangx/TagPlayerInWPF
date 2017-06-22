@@ -24,7 +24,7 @@ namespace TagPlayer.controls.Resource.Tags
         public TagRegion()
         {
             InitializeComponent();
-            foreach (var button in TagButtonModel.GetButtonContent("RegionTags"))
+            foreach (var button in TagButtonModel.Instance.GetButtonContent("RegionTags"))
             {
                 WrapPanel.Children.Add(button);
             }

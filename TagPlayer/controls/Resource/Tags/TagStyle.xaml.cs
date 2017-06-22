@@ -24,7 +24,7 @@ namespace TagPlayer.controls.Resource.Tags
         public TagStyle()
         {
             InitializeComponent();
-            foreach (var button in TagButtonModel.GetButtonContent("StyleTags"))
+            foreach (var button in TagButtonModel.Instance.GetButtonContent("StyleTags"))
             {
                 WrapPanel.Children.Add(button);
             }
