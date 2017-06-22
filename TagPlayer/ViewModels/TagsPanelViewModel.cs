@@ -58,7 +58,7 @@ namespace TagPlayer.ViewModels
             LoadSongListCommand = new DelegateCommand(OnLoadSongList);
             SureCommand = new DelegateCommand(OnSure);
             PlaySongCommand = new DelegateCommand(OnPlaySong);
-            SelectTagsCommand = new DelegateCommand<Button>(OnSelectTags);
+            //SelectTagsCommand = new DelegateCommand<Button>(OnSelectTags);
         }
     }
 }

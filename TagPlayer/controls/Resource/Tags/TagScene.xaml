@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TagPlayer.controls.Resource.Tags"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <WrapPanel Background="Transparent" x:Name="WrapPanel">
+    <WrapPanel Background="Transparent" x:Name="SceneTags">
         <!--<Button x:Name="btn_清晨" Content="清晨" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
         <Button x:Name="btn_夜晚" Content="夜晚" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
         <Button x:Name="btn_学习" Content="学习" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>

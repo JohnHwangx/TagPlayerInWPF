@@ -25,10 +25,10 @@ namespace TagPlayer.controls.Resource.Tags
         public TagScene()
         {
             InitializeComponent();
-            foreach (var button in TagButtonModel.Instance.GetButtonContent("SceneTags"))
-            {
-                WrapPanel.Children.Add(button);
-            }
+            //foreach (var button in TagButtonModel.Instance.GetButtonContent("SceneTags"))
+            //{
+            //    WrapPanel.Children.Add(button);
+            //}
         }
     }
 }

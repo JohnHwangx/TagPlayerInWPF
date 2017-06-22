@@ -8,6 +8,8 @@ using Prism.Mvvm;
 using System.Windows.Media;
 using TagPlayer.ViewModels;
 using System.Collections.ObjectModel;
+using Prism.Commands;
+using System.Windows.Controls;
 
 namespace TagPlayer
 {
@@ -118,6 +120,16 @@ namespace TagPlayer
                 PlayList = tempList;
             }
         }
+        public DelegateCommand<Button> SelectTagsCommand { get; set; }
+        /// <summary>
+        /// 确认选中的标签，在歌曲列表显示包含选中标签的歌曲
+        /// </summary>
+        private void OnSelectTags(Button button)
+        {
+            //Songs.SongList.Clear();
+            TagButtonModel.Instance.SetTagModel(ref button);
+            //MainViewModel.SongList = SongListModel.GetSelectedSongs(TagButtonModel.Instance.SongTags);
+        }
 
         public TagsPanelViewModel TagsPanelViewModel { get; set; }
         public SongListViewModel SongListViewModel { get; set; }
@@ -133,6 +145,8 @@ namespace TagPlayer
             TagsPanelViewModel = new TagsPanelViewModel(this);
             ControlViewModel = new ControlViewModel(this);
             PlayListViewModel = new PlayListViewModel(this);
+
+            SelectTagsCommand = new DelegateCommand<Button>(OnSelectTags);
         }
     }
 

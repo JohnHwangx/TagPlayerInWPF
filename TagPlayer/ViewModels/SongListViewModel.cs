@@ -65,17 +65,18 @@ namespace TagPlayer.ViewModels
             if (songListItem == null) return;
             var selectedSong = songListItem.Song;
 
-            var tagEditViewModel = new TagEditViewModel(selectedSong);
+            //var tagEditViewModel = new TagEditViewModel(selectedSong);
+            var tagsEditViewModel = new TagsEditViewModel(selectedSong);
             var tagEditWindow = new TagsEditingWindow()
             {
-                DataContext = tagEditViewModel
+                DataContext = tagsEditViewModel
             };
             tagEditWindow.ShowDialog();
 
             if (tagEditWindow.DialogResult != true) return;
-            SongListModel.ClearSongTags(songListItem.Song);//将数据库中该歌曲的标签清空
-            selectedSong.Tags = new List<string>(tagEditViewModel.SongTags);
-            SongListModel.SaveSongTags(songListItem.Song);
+            //SongListModel.ClearSongTags(songListItem.Song);//将数据库中该歌曲的标签清空
+            //selectedSong.Tags = new List<string>(tagsEditViewModel.SongTags);
+            //SongListModel.SaveSongTags(songListItem.Song);
         }
         public DelegateCommand<ListBox> AddCommand { get; set; }
 

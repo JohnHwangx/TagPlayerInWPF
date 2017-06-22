@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TagPlayer.controls.Resource.Tags"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <WrapPanel Background="Transparent" x:Name="WrapPanel">
+    <WrapPanel Background="Transparent" x:Name="StyleTags">
         <!--<Button x:Name="btn_流行" Content="流行" Width="70" Background="Transparent" BorderThickness="0" Command="{Binding aaaa}" CommandParameter="{Binding ElementName=btn_流行}" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>-->
         <!--<Button x:Name="btn_摇滚" Content="摇滚" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
         <Button x:Name="btn_民谣" Content="民谣" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>

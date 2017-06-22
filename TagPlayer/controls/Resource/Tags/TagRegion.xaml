@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TagPlayer.controls.Resource.Tags"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <WrapPanel Background="Transparent" x:Name="WrapPanel">
+    <WrapPanel Background="Transparent" x:Name="RegionTags">
         <!--<Button x:Name="btn_华语" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}">华语</Button>
         <Button x:Name="btn_欧美" Content="欧美" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
         <Button x:Name="btn_日语" Content="日语" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>

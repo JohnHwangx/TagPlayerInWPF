@@ -54,11 +54,21 @@ namespace TagPlayer.Model
                 Height = 20,
                 Background = new SolidColorBrush(Colors.Transparent),
                 BorderThickness = new Thickness(0),
-                Foreground = window.FindResource("ForegroundBrush") as SolidColorBrush,
+                //Foreground = window.FindResource("ForegroundBrush") as SolidColorBrush,
                 Template = window.FindResource("TagsButtonTemplate") as ControlTemplate,
                 //TODO 添加Command和CommandParameter
             };
-            button.SetBinding(ButtonBase.CommandProperty, new Binding("TagsPanelViewModel.SelectTagCommand"));
+            if (SongTags.Contains(content))
+            {
+                button.FontWeight = FontWeights.Bold;
+                button.Foreground = FindResource("MouseOverBrush") as SolidColorBrush;
+            }
+            else
+            {
+                button.FontWeight = FontWeights.Normal;
+                button.Foreground = FindResource("ForegroundBrush") as SolidColorBrush;
+            }
+            button.SetBinding(ButtonBase.CommandProperty, new Binding("SelectTagsCommand"));
             button.SetBinding(ButtonBase.CommandParameterProperty, new Binding { Source = button });
             return button;
         }

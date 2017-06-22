@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TagPlayer.Model;
 
 namespace TagPlayer.controls
 {
@@ -23,6 +24,24 @@ namespace TagPlayer.controls
         public TagsViewControl()
         {
             InitializeComponent();
+            foreach (var child in StackPanelTags.Children)
+            {
+                if (child is GroupBox groupBox)
+                {
+                    var groupBoxChildren = groupBox.Content as UserControl;
+                    if (groupBoxChildren!=null)
+                    {
+                        var wrapPanel = groupBoxChildren.Content as WrapPanel;
+                        if (wrapPanel!=null)
+                        {
+                            foreach (var button in TagButtonModel.Instance.GetButtonContent(wrapPanel.Name))
+                            {
+                                wrapPanel.Children.Add(button);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

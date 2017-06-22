@@ -24,10 +24,10 @@ namespace TagPlayer.controls.Resource.Tags
         public TagFeeling()
         {
             InitializeComponent();
-            foreach (var button in TagButtonModel.Instance.GetButtonContent("FeelingTags"))
-            {
-                WrapPanel.Children.Add(button);
-            }
+            //foreach (var button in TagButtonModel.Instance.GetButtonContent("FeelingTags"))
+            //{
+            //    WrapPanel.Children.Add(button);
+            //}
         }
     }
 }

@@ -7,6 +7,9 @@
         xmlns:local="clr-namespace:TagPlayer.controls"
         mc:Ignorable="d"  FontFamily="Microsoft YaHei UI"
         Title="TagsEditingWindow" Height="400" Width="500" x:Name="EditingWindow">
+    <Window.Resources>
+        <ResourceDictionary Source="./Resource/PlayListResource.xaml"/>
+    </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}" CommandParameter="{Binding ElementName=EditingWindow}"></i:InvokeCommandAction>
@@ -18,8 +21,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <ScrollViewer>
-            <local:TagsViewControl Button.Click="ButtonBase_OnClick"/>
-            <!--<local:TagsView/>-->
+            <local:TagsViewControl/>
         </ScrollViewer>
         <Grid Grid.Row="1" VerticalAlignment="Bottom" Height="50">
             <Grid.Background>
@@ -28,8 +30,8 @@
                     <GradientStop Color="SkyBlue" Offset="1"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <Button Template="{StaticResource PlayListButtonTemplate}" Command="{Binding EditTagsCommand}" CommandParameter="{Binding ElementName=EditingWindow}" x:Name="BtnSave" HorizontalAlignment="Right" Margin="47,0,100,0" VerticalAlignment="Center" Width="75" Height="25">确定</Button>
-            <Button Template="{StaticResource PlayListButtonTemplate}" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=EditingWindow}" x:Name="BtnCancel" HorizontalAlignment="Right" Margin="47,0,10,0" VerticalAlignment="Center" Width="75" Height="25">取消</Button>
+            <Button Template="{StaticResource PlayListButtonTemplate}" Command="{Binding SureCommand}" CommandParameter="{Binding ElementName=EditingWindow}" x:Name="BtnSave" HorizontalAlignment="Right" Margin="47,0,100,0" VerticalAlignment="Center" Width="75" Height="25">确定</Button>
+            <Button Template="{StaticResource PlayListButtonTemplate}" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=EditingWindow}" x:Name="BtnCancel" HorizontalAlignment="Right" Margin="47,0,10,0" VerticalAlignment="Center" Width="75" Height="25">取消</Button>
             <Button Template="{StaticResource PlayListButtonTemplate}" Command="{Binding ClearTagsCommand}" CommandParameter="{Binding ElementName=EditingWindow}" x:Name="BtnClear" HorizontalAlignment="Right" Margin="47,0,190,0" VerticalAlignment="Center" Width="75" Height="25">清空</Button>
         </Grid>
 

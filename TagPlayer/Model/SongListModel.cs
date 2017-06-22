@@ -89,7 +89,7 @@ namespace TagPlayer.Model
             if (!IsExistTable(TableName))//表不存在
             {
                 string createTableSql = @"path nvarchar(400) primary key,title text,artist text,album text,duration text" +
-                                   GetInsertSql(GetAllTags(), " bit default 0");
+                                   GetInsertSql(GetAllTags(), " bool default false");
                 CreateTable(DbName, TableName, createTableSql);//创建数据表
             }
             else

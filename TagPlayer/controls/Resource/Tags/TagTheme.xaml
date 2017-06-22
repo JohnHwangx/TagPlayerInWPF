@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TagPlayer.controls.Resource.Tags"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <WrapPanel Background="Transparent" Height="Auto" x:Name="WrapPanel">
+    <WrapPanel Background="Transparent" Height="Auto" x:Name="ThemeTags">
         <!--<Button x:Name="btn_影视原声" Content="影视原声" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
         <Button x:Name="btn_ACG" Content="ACG" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>
         <Button x:Name="btn_校园" Content="校园" Width="70" Background="Transparent" BorderThickness="0" Height="25" Template="{StaticResource TagsButtonTemplate}" Foreground="{StaticResource ForegroundBrush}"/>

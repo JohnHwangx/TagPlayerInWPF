@@ -27,7 +27,6 @@ namespace TagPlayer.ViewModels
         {
             CheckTag(GetStackPanel(window).Children, false);
             SongTags.Clear();
-            //TagsList.Clear();
         }
         public DelegateCommand<Window> EditTagsCommand { get; set; }
         private void EditTagsExecute(Window window)
