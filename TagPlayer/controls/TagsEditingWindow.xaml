@@ -21,7 +21,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <ScrollViewer>
-            <local:TagsViewControl/>
+            <local:TagsViewControl x:Name="TagsViewControl"/>
         </ScrollViewer>
         <Grid Grid.Row="1" VerticalAlignment="Bottom" Height="50">
             <Grid.Background>

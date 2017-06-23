@@ -220,7 +220,7 @@ namespace TagPlayer.Model
             while (dataReader.Read())
             {
                 var tagList = new List<string>();
-                for (int i = 4; i < dataReader.FieldCount; i++)
+                for (int i = 5; i < dataReader.FieldCount; i++)
                 {
                     if (dataReader[i].ToString().Equals("True"))
                     {

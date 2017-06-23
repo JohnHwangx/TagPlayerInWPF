@@ -24,24 +24,52 @@ namespace TagPlayer.controls
         public TagsViewControl()
         {
             InitializeComponent();
+            ChangeWrapPanel(AddButton);
+        }
+
+        private void ChangeWrapPanel(Action<WrapPanel> action)
+        {
             foreach (var child in StackPanelTags.Children)
             {
                 if (child is GroupBox groupBox)
                 {
                     var groupBoxChildren = groupBox.Content as UserControl;
-                    if (groupBoxChildren!=null)
+                    if (groupBoxChildren != null)
                     {
                         var wrapPanel = groupBoxChildren.Content as WrapPanel;
-                        if (wrapPanel!=null)
+                        if (wrapPanel != null)
                         {
-                            foreach (var button in TagButtonModel.Instance.GetButtonContent(wrapPanel.Name))
-                            {
-                                wrapPanel.Children.Add(button);
-                            }
+                            action(wrapPanel);
                         }
                     }
                 }
             }
+        }
+
+        private void AddButton(WrapPanel wrapPanel)
+        {
+            foreach (var button in TagButtonModel.Instance.GetButtonContent(wrapPanel.Name))
+            {
+                wrapPanel.Children.Add(button);
+            }
+        }
+
+        private void ClearTags(WrapPanel wrapPanel)
+        {
+            foreach (var item in wrapPanel.Children)
+            {
+                var button = item as Button;
+                if (button!=null)
+                {
+                    button.FontWeight = FontWeights.Normal;
+                    button.Foreground = FindResource("ForegroundBrush") as SolidColorBrush;
+                }
+            }
+        }
+
+        public void ClearTags()
+        {
+            ChangeWrapPanel(ClearTags);
         }
     }
 }

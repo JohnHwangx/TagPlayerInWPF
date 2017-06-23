@@ -12,7 +12,7 @@ using TagPlayer.Model;
 
 namespace TagPlayer.ViewModels
 {
-    public class TagEditViewModel : Window
+    public class TagEditViewModel/* : Window*/
     {
         public List<string> SongTags { get; set; }
 

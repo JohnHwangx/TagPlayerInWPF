@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using TagPlayer.controls;
 using TagPlayer.Model;
 
 namespace TagPlayer.ViewModels
 {
     public class TagsEditViewModel
     {
-        public List<string> SongTags { get; set; }
+        //public List<string> SongTags { get; set; }
         /// <summary>
         /// 取消
         /// </summary>
@@ -28,8 +29,7 @@ namespace TagPlayer.ViewModels
         public DelegateCommand<Window> ClearTagsCommand { get; set; }
         private void ClearTagsExecute(Window window)
         {
-            //CheckTag(GetStackPanel(window).Children, false);
-            SongTags.Clear();
+            TagButtonModel.Instance.ClearTags(window);
         }
         /// <summary>
         /// 确定
@@ -45,7 +45,6 @@ namespace TagPlayer.ViewModels
 
         private void OnSelectTags(Button button)
         {
-            //TagButtonModel.Instance.SongTags = SongTags;
             TagButtonModel.Instance.SetTagModel(ref button);
         }
         public TagsEditViewModel(Song song)
