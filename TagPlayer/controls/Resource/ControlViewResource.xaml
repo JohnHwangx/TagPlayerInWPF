@@ -4,6 +4,8 @@
     <model:SongDurationConverter x:Key="SongDurationConverter"/>
     <model:BoolVisibilityConverter x:Key="BoolVisibilityConverter"/>
     <model:ReverseConverter x:Key="ReverseConverter"/>
+    <model:PlayShowConverter x:Key="PlayShowConverter"/>
+    <model:PauseShowConverter x:Key="PauseShowConverter"/>
     <model:LoopPlayConverter x:Key="LoopPlayConverter"/>
     <model:SequentialPlayConverter x:Key="SequentialPlayConverter"/>
     <model:SinglePlayConverter x:Key="SinglePlayConverter"/>

@@ -9,7 +9,6 @@
              d:DesignHeight="60" d:DesignWidth="700">
     <UserControl.Resources>
         <ResourceDictionary Source="./Resource/ControlViewResource.xaml"/>
-        <!--<model:SongDurationConverter x:Key="SongDurationConverter"/>-->
     </UserControl.Resources>
     <DockPanel Height="60" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" >
         <DockPanel.Background>
@@ -36,14 +35,15 @@
             </Button>
             <Button ToolTip="{Binding SongListService.ControlService.PlayPauseToolTip}" 
                     Name="BtnPlayPause" Grid.Column="1" 
-                    Template="{StaticResource btnPlayPauseTemplate}" Width="40" Height="40" 
+                    Template="{StaticResource btnPlayPauseTemplate}" 
+                    Width="40" Height="40" 
                     Command="{Binding ControlViewModel.PlayPauseCommand}">
                 <Canvas>
-                    <Canvas Visibility="{Binding ControlViewModel.IsPlay,Converter={StaticResource BoolVisibilityConverter}}" 
+                    <Canvas Visibility="{Binding PlayState,Converter={StaticResource PlayShowConverter}}" 
                             Name="播放" Width="14" Height="20" Margin="15,10,0,0" >
                         <Polygon Fill="White" Points="0,0 0,20 14,10"/>
                     </Canvas>
-                    <Canvas Visibility="{Binding ControlViewModel.IsPlay,Converter={StaticResource ReverseConverter}}" 
+                    <Canvas Visibility="{Binding PlayState,Converter={StaticResource PauseShowConverter}}" 
                             Name="暂停" Width="14" Height="20" Margin="13,10,0,0" >
                         <Polygon Fill="White" Points="0,0 3,0 3,20 0,20"/>
                         <Polygon Fill="White" Points="11,0 14,0 14,20 11,20"/>
@@ -82,7 +82,8 @@
         <!--进度条-->
         <DockPanel Margin="10,0,20,5" >
             <Slider x:Name="SliderPlay" Maximum="500" VerticalAlignment="Center" 
-                    TickFrequency="0" DockPanel.Dock="Bottom" Value="{Binding SongListService.ControlService.PlayService.Period,Mode=TwoWay}">
+                    TickFrequency="0" DockPanel.Dock="Bottom" 
+                    Value="{Binding ControlViewModel.Period,Mode=TwoWay}">
                 <Slider.Style>
                     <Style TargetType="Slider">
                         <Setter Property="Template">

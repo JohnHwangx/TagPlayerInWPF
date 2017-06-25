@@ -13,6 +13,7 @@ namespace TagPlayer.ViewModels
 {
     public class TagsEditViewModel
     {
+        public Song SelectedSong { get; set; }
         //public List<string> SongTags { get; set; }
         /// <summary>
         /// 取消
@@ -38,6 +39,9 @@ namespace TagPlayer.ViewModels
         private void SureExecute(Window window)
         {
             window.DialogResult = true;
+            SongListModel.ClearSongTags(SelectedSong);//将数据库中该歌曲的标签清空
+            SelectedSong.Tags = new List<string>(TagButtonModel.Instance.SongTags);
+            SongListModel.SaveSongTags(SelectedSong);
             window.Close();
         }
 
@@ -45,11 +49,12 @@ namespace TagPlayer.ViewModels
 
         private void OnSelectTags(Button button)
         {
-            TagButtonModel.Instance.SetTagModel(ref button);
+            TagButtonModel.Instance.SetTagModel(ref button, TagsType.SongTags);
         }
         public TagsEditViewModel(Song song)
         {
-            TagButtonModel.Instance.SongTags = song.Tags;
+            SelectedSong = song;
+            TagButtonModel.Instance.SongTags = new List<string>(song.Tags);
             SelectTagsCommand = new DelegateCommand<Button>(OnSelectTags);
             ClearTagsCommand = new DelegateCommand<Window>(ClearTagsExecute);
             SureCommand = new DelegateCommand<Window>(SureExecute);

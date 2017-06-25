@@ -19,17 +19,17 @@ namespace TagPlayer.ViewModels
         public MainViewModel MainViewModel { get; set; }
         private Song PlayingSong { get; set; }
 
-        private bool _isPlay;
+        //private bool _isPlay;
 
-        public bool IsPlay
-        {
-            get { return _isPlay; }
-            set
-            {
-                _isPlay = value;
-                RaisePropertyChanged("IsPlay");
-            }
-        }
+        //public bool IsPlay
+        //{
+        //    get { return _isPlay; }
+        //    set
+        //    {
+        //        _isPlay = value;
+        //        RaisePropertyChanged("IsPlay");
+        //    }
+        //}
 
         private PlayMode _playMode;
 
@@ -48,7 +48,15 @@ namespace TagPlayer.ViewModels
 
         private void OnPlayPause()
         {
-            IsPlay = !IsPlay;
+            //IsPlay = !IsPlay;
+            if (MainViewModel.PlayState!=PlayState.播放)
+            {
+                MainViewModel.PlayState = PlayState.播放;
+            }
+            else
+            {
+                MainViewModel.PlayState = PlayState.暂停;
+            }
         }
 
         public ICommand PlayModeChangeCommand { get; set; }
@@ -85,9 +93,26 @@ namespace TagPlayer.ViewModels
             MainViewModel.PlayingSong = PlayingSongOperator.OnLastExecute(PlayMode, MainViewModel.PlayList, MainViewModel.PlayList.IndexOf(MainViewModel.PlayingSong));
         }
 
+        public bool IsDrag { get; set; }
+        /// <summary>
+        /// 设置进度条每秒的移动
+        /// </summary>
+        private void SetPrograssBar()
+        {
+            if (!IsDrag)
+            {
+                var mediaPlayer = PlayModel.Instance.MediaPlayer;
+                int second = (int)mediaPlayer.Position.TotalSeconds % 60;
+                int minute = (int)mediaPlayer.Position.TotalMinutes;
+                //Rate = (minute < 10 ? "0" + minute : minute.ToString()) + " : " +
+                //       (second < 10 ? "0" + second : second.ToString());
+                //Period = mediaPlayer.Position.TotalSeconds / MainViewModel.PlayingSong.Duration * 500.0;
+            }
+        }
+
         public ControlViewModel(MainViewModel mainViewModel)
         {
-            IsPlay = false;
+            //IsPlay = false;
             MainViewModel = mainViewModel;
             PlayingSongOperator = new PlayingSongOperator();
 

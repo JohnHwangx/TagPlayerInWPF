@@ -195,6 +195,7 @@ namespace TagPlayer.Model
 
             var clearSql = string.Join(",", song.Tags.Select(i => "[" + i + "]=0"));
             UpdateTable(DbName, TableName, clearSql, song.Path);
+            //song.Tags.Clear();
         }
 
         /// <summary>

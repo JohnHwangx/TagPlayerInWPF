@@ -54,6 +54,8 @@ namespace TagPlayer.ViewModels
                 var selectedSong = songListItem.Song;
                 MainViewModel.ChangePlayingSong(selectedSong);
                 MainViewModel.ChangePlayList();
+
+                MainViewModel.PlayState = PlayState.播放;
             }
         }
 

@@ -85,16 +85,18 @@
     <Compile Include="controls\TagsEditingWindow.xaml.cs">
       <DependentUpon>TagsEditingWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="converter\PeriodRateConverter.cs" />
     <Compile Include="converter\PlayModeConverter.cs" />
+    <Compile Include="converter\PlayStateConverter.cs" />
     <Compile Include="converter\SongListMenuConverter.cs" />
     <Compile Include="Model\DbOperator.cs" />
     <Compile Include="Model\PlayingSongOperator.cs" />
-    <Compile Include="Model\PlayMode.cs" />
+    <Compile Include="Model\PlayType.cs" />
+    <Compile Include="Model\PlayModel.cs" />
     <Compile Include="Model\SongListModel.cs" />
     <Compile Include="ViewModels\ControlViewModel.cs" />
     <Compile Include="ViewModels\PlayListViewModel.cs" />
     <Compile Include="ViewModels\SongListViewModel.cs" />
-    <Compile Include="ViewModels\TagEditViewModel.cs" />
     <Compile Include="ViewModels\TagsEditViewModel.cs" />
     <Compile Include="ViewModels\TagsPanelViewModel.cs" />
     <Page Include="controls\ControlView.xaml">

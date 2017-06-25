@@ -18,7 +18,6 @@ namespace TagPlayer.ViewModels
         /// 为了改变PlayingSong而加入
         /// </summary>
         public MainViewModel MainViewModel { get; set; }
-        //public SongListModel SongListModel { get; set; } = new SongListModel();
         private bool _isShowPlayList;
 
         public bool IsShowPlayList
@@ -62,6 +61,7 @@ namespace TagPlayer.ViewModels
             {
                 var selectedSong = songListItem.Song;
                 MainViewModel.ChangePlayingSong(selectedSong);
+                MainViewModel.PlayState = PlayState.播放;
             }
         }
 

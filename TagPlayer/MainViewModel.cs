@@ -65,6 +65,40 @@ namespace TagPlayer
             }
         }
 
+        private PlayState _playState=PlayState.暂停;
+
+        public PlayState PlayState
+        {
+            get { return _playState; }
+            set
+            {
+                _playState = value;
+                OnPlayStateChanged();
+                RaisePropertyChanged("PlayState");
+            }
+        }
+
+        private void OnPlayStateChanged()
+        {
+            switch (PlayState)
+            {
+                case PlayState.无文件:
+                    break;
+                case PlayState.无列表:
+                    break;
+                case PlayState.播放:
+                    PlayModel.Instance.Play(PlayingSong.Path);
+                    break;
+                case PlayState.暂停:
+                    PlayModel.Instance.Pause();
+                    break;
+                case PlayState.停止:
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void OnPlayingSongChanged()
         {
             PlayingSong.LoadAlbum();
@@ -120,15 +154,14 @@ namespace TagPlayer
                 PlayList = tempList;
             }
         }
+
         public DelegateCommand<Button> SelectTagsCommand { get; set; }
         /// <summary>
         /// 确认选中的标签，在歌曲列表显示包含选中标签的歌曲
         /// </summary>
         private void OnSelectTags(Button button)
         {
-            //Songs.SongList.Clear();
-            TagButtonModel.Instance.SetTagModel(ref button);
-            //MainViewModel.SongList = SongListModel.GetSelectedSongs(TagButtonModel.Instance.SongTags);
+            TagButtonModel.Instance.SetTagModel(ref button, TagsType.SelectTags);
         }
 
         public TagsPanelViewModel TagsPanelViewModel { get; set; }

@@ -19,12 +19,13 @@ namespace TagPlayer.Model
 
         public static TagButtonModel Instance
         {
-            get { return _instance??(_instance=new TagButtonModel()); }
+            get { return _instance ?? (_instance = new TagButtonModel()); }
         }
 
         private TagButtonModel()
         {
             SongTags = new List<string>();
+            SelectTags = new List<string>();
         }
         public List<Button> GetButtonContent(string categoryName)
         {
@@ -55,7 +56,6 @@ namespace TagPlayer.Model
                 Background = new SolidColorBrush(Colors.Transparent),
                 BorderThickness = new Thickness(0),
                 Template = window.FindResource("TagsButtonTemplate") as ControlTemplate,
-                //TODO 添加Command和CommandParameter
             };
             if (SongTags.Contains(content))
             {
@@ -74,19 +74,40 @@ namespace TagPlayer.Model
 
         public List<string> SongTags { get; set; }
 
-        public void SetTagModel(ref Button button)
+        //public void SetSongTags(List<string> songTags)
+        //{
+        //    SongTags = songTags;
+        //}
+
+        public List<string> SelectTags { get; }
+
+        public void SetTagModel(ref Button button, TagsType tagsType)
         {
             if (button.FontWeight == FontWeights.Normal)
             {
                 button.FontWeight = FontWeights.Bold;
                 button.Foreground = FindResource("MouseOverBrush") as SolidColorBrush;
-                SongTags.Add(button.Content.ToString());
+                if (tagsType == TagsType.SongTags)
+                {
+                    SongTags.Add(button.Content.ToString());
+                }
+                else if (tagsType == TagsType.SelectTags)
+                {
+                    SelectTags.Add(button.Content.ToString());
+                }
             }
             else if (button.FontWeight == FontWeights.Bold)
             {
                 button.FontWeight = FontWeights.Normal;
                 button.Foreground = FindResource("ForegroundBrush") as SolidColorBrush;
-                SongTags.RemoveAt(SongTags.IndexOf(button.Content.ToString()));
+                if (tagsType == TagsType.SongTags)
+                {
+                    SongTags.RemoveAt(SongTags.IndexOf(button.Content.ToString()));
+                }
+                else if (tagsType == TagsType.SelectTags)
+                {
+                    SelectTags.RemoveAt(SelectTags.IndexOf(button.Content.ToString()));
+                }
             }
         }
 
@@ -97,5 +118,10 @@ namespace TagPlayer.Model
             var userControl = tagsEditWindow.TagsViewControl;
             userControl.ClearTags();
         }
+    }
+
+    public enum TagsType
+    {
+        SongTags, SelectTags
     }
 }
