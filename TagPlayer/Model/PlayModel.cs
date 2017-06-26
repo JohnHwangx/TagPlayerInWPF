@@ -29,6 +29,7 @@ namespace TagPlayer.Model
             MediaPlayer = new MediaElement();
             //MediaPlayer.LoadedBehavior = MediaState.Manual;
             MediaPlayer.UnloadedBehavior = MediaState.Manual;
+            MediaPlayer.MediaEnded += Media_End;
         }
         //public string SongPath { get; set; }
         public PlayState PlayState { get; set; }
@@ -38,22 +39,25 @@ namespace TagPlayer.Model
 
         public void Play(string path)
         {
-            if (MediaPlayer.Source==null)
+            if (MediaPlayer.Source == null)
             {
                 if (File.Exists(path))
                 {
+                    PlayState = PlayState.播放;
                     MediaPlayer.Source = (new Uri(path, UriKind.Absolute));
                     MediaPlayer.Play();
-                } 
+                }
             }
             else
             {
+                PlayState = PlayState.播放;
                 MediaPlayer.Play();
             }
         }
 
         public void Pause()
         {
+            PlayState = PlayState.暂停;
             MediaPlayer.Pause();
         }
 
@@ -75,6 +79,7 @@ namespace TagPlayer.Model
         }
 
         public MediaState MediaState { get; set; }
+        public RoutedEventHandler Media_End { get; set; }
 
         /// <summary>
         /// 根据进度条值计算歌曲进度，以mm:ss格式显示

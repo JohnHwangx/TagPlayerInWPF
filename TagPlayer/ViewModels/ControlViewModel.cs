@@ -17,19 +17,6 @@ namespace TagPlayer.ViewModels
         /// 为了改变PlayingSong而加入
         /// </summary>
         public MainViewModel MainViewModel { get; set; }
-        private Song PlayingSong { get; set; }
-
-        //private bool _isPlay;
-
-        //public bool IsPlay
-        //{
-        //    get { return _isPlay; }
-        //    set
-        //    {
-        //        _isPlay = value;
-        //        RaisePropertyChanged("IsPlay");
-        //    }
-        //}
 
         private PlayMode _playMode;
 
@@ -43,6 +30,17 @@ namespace TagPlayer.ViewModels
             }
         }
 
+        private string _rate;
+        /// <summary> 用于显示的时长 </summary>
+        public string Rate
+        {
+            get { return _rate; }
+            set
+            {
+                _rate = value;
+                RaisePropertyChanged("Rate");
+            }
+        }
 
         public ICommand PlayPauseCommand { get; set; }
 
@@ -104,10 +102,22 @@ namespace TagPlayer.ViewModels
             set
             {
                 _period = value;
-                //Rate = GetSongDuration(_period);
+                Rate = GetSongDuration(_period);
                 RaisePropertyChanged("Period");
             }
         }
+
+        /// <summary>
+        /// 根据进度条值计算歌曲进度，以mm:ss格式显示
+        /// </summary>
+        private string GetSongDuration(double period)
+        {
+            var songDuration = period / 500.0 * GetDuration(MainViewModel.PlayingSong.Duration);
+            return ((int)songDuration / 60 < 10 ? "0" + (int)songDuration / 60 : ((int)songDuration / 60).ToString()) +
+                   " : " +
+                   ((int)songDuration % 60 < 10 ? "0" + (int)songDuration % 60 : ((int)songDuration % 60).ToString());
+        }
+
         /// <summary>
         /// 设置进度条每秒的移动
         /// </summary>
@@ -127,7 +137,7 @@ namespace TagPlayer.ViewModels
         private double GetDuration(string duration)
         {
             if (duration == null) return 0;
-            var time = PlayingSong.Duration.Split(':');
+            var time = duration.Split(':');
             return int.Parse(time[0]) * 60 * 60 + int.Parse(time[1]) * 60 + int.Parse(time[2]);
         }
 
@@ -136,6 +146,7 @@ namespace TagPlayer.ViewModels
             //IsPlay = false;
             MainViewModel = mainViewModel;
             PlayingSongOperator = new PlayingSongOperator();
+            PlayModel.Instance.SetPrograssBar = SetPrograssBar;
 
             PlayPauseCommand = new DelegateCommand(OnPlayPause);
             NextCommand = new DelegateCommand(OnNext);

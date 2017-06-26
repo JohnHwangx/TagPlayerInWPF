@@ -153,8 +153,10 @@
                        Text="{Binding PlayingSong.Duration,Converter={StaticResource SongDurationConverter}}" 
                        Margin="0,5,0,0" FontSize="10.667" HorizontalAlignment="Right" 
                        DockPanel.Dock="Right" Foreground="{StaticResource ForegroundBrush}"/>
+            <TextBlock Margin="0,5,0,0" HorizontalAlignment="Right" 
+                       DockPanel.Dock="Right" VerticalAlignment="Top"> / </TextBlock>
             <TextBlock x:Name="LblCurrentPosition"                       
-                       Text="{Binding ControlService.PlayService.Rate,Mode=TwoWay}" 
+                       Text="{Binding ControlViewModel.Rate,Mode=TwoWay}" 
                        Margin="0,5,0,0" FontSize="10.667" HorizontalAlignment="Right" 
                        DockPanel.Dock="Right"/>
             <!--<TextBlock Text="{Binding SongListService.PlayService.Rate,Mode=TwoWay}" Margin="0,5,0,0" FontSize="10.667" HorizontalAlignment="Right" DockPanel.Dock="Right"/>-->
