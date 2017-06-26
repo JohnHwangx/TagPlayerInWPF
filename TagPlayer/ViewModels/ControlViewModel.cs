@@ -94,6 +94,20 @@ namespace TagPlayer.ViewModels
         }
 
         public bool IsDrag { get; set; }
+
+        private double _period;
+
+        /// <summary> 当前进度,对应Slider的Value </summary>
+        public double Period
+        {
+            get { return _period; }
+            set
+            {
+                _period = value;
+                //Rate = GetSongDuration(_period);
+                RaisePropertyChanged("Period");
+            }
+        }
         /// <summary>
         /// 设置进度条每秒的移动
         /// </summary>
@@ -106,8 +120,15 @@ namespace TagPlayer.ViewModels
                 int minute = (int)mediaPlayer.Position.TotalMinutes;
                 //Rate = (minute < 10 ? "0" + minute : minute.ToString()) + " : " +
                 //       (second < 10 ? "0" + second : second.ToString());
-                //Period = mediaPlayer.Position.TotalSeconds / MainViewModel.PlayingSong.Duration * 500.0;
+                Period = mediaPlayer.Position.TotalSeconds / GetDuration(MainViewModel.PlayingSong.Duration) * 500.0;
             }
+        }
+
+        private double GetDuration(string duration)
+        {
+            if (duration == null) return 0;
+            var time = PlayingSong.Duration.Split(':');
+            return int.Parse(time[0]) * 60 * 60 + int.Parse(time[1]) * 60 + int.Parse(time[2]);
         }
 
         public ControlViewModel(MainViewModel mainViewModel)

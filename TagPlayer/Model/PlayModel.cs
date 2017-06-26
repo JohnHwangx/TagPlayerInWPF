@@ -74,6 +74,8 @@ namespace TagPlayer.Model
             }
         }
 
+        public MediaState MediaState { get; set; }
+
         /// <summary>
         /// 根据进度条值计算歌曲进度，以mm:ss格式显示
         /// </summary>
