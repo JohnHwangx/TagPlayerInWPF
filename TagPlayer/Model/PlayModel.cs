@@ -13,7 +13,7 @@ namespace TagPlayer.Model
 {
     public class PlayModel : DispatcherObject
     {
-        public static PlayModel _instance;
+        private static PlayModel _instance;
         public static PlayModel Instance
         {
             get { return _instance ?? (_instance = new PlayModel()); }
@@ -31,6 +31,14 @@ namespace TagPlayer.Model
             MediaPlayer.UnloadedBehavior = MediaState.Manual;
             MediaPlayer.MediaEnded += Media_End;
         }
+
+        public Action MediaEnd { get; set; }
+
+        private void Media_End(object sender, RoutedEventArgs e)
+        {
+            MediaEnd();
+        }
+
         //public string SongPath { get; set; }
         public PlayState PlayState { get; set; }
         public Timer Timer { get; set; }
@@ -39,7 +47,7 @@ namespace TagPlayer.Model
 
         public void Play(string path)
         {
-            if (MediaPlayer.Source == null)
+            //if (MediaPlayer.Source == null)
             {
                 if (File.Exists(path))
                 {
@@ -48,11 +56,16 @@ namespace TagPlayer.Model
                     MediaPlayer.Play();
                 }
             }
-            else
-            {
-                PlayState = PlayState.播放;
-                MediaPlayer.Play();
-            }
+            //else
+            //{
+            //    PlayState = PlayState.播放;
+            //    MediaPlayer.Play();
+            //}
+        }
+        public void Play()
+        {
+            PlayState = PlayState.播放;
+            MediaPlayer.Play();
         }
 
         public void Pause()
@@ -79,7 +92,7 @@ namespace TagPlayer.Model
         }
 
         public MediaState MediaState { get; set; }
-        public RoutedEventHandler Media_End { get; set; }
+
 
         /// <summary>
         /// 根据进度条值计算歌曲进度，以mm:ss格式显示
@@ -101,19 +114,5 @@ namespace TagPlayer.Model
         }
 
         public Action SetPrograssBar;
-        ///// <summary>
-        ///// 设置进度条每秒的移动
-        ///// </summary>
-        //private void SetPrograssBar()
-        //{
-        //    if (!IsDrag)
-        //    {
-        //        int second = (int)MediaPlayer.Position.TotalSeconds % 60;
-        //        int minute = (int)MediaPlayer.Position.TotalMinutes;
-        //        //Rate = (minute < 10 ? "0" + minute : minute.ToString()) + " : " +
-        //        //       (second < 10 ? "0" + second : second.ToString());
-        //        Period = MediaPlayer.Position.TotalSeconds / Duration * 500.0;
-        //    }
-        //}
     }
 }
