@@ -46,7 +46,6 @@ namespace TagPlayer.ViewModels
 
         private void OnPlayPause()
         {
-            //IsPlay = !IsPlay;
             if (MainViewModel.PlayState!=PlayState.播放)
             {
                 MainViewModel.PlayState = PlayState.播放;
@@ -134,6 +133,11 @@ namespace TagPlayer.ViewModels
             }
         }
 
+        private void MediaEnd(object sender, EventArgs e)
+        {
+            MainViewModel.PlayingSong = PlayingSongOperator.GetNextSong(PlayMode, MainViewModel.PlayList, MainViewModel.PlayList.IndexOf(MainViewModel.PlayingSong));
+        }
+
         private double GetDuration(string duration)
         {
             if (duration == null) return 0;
@@ -147,6 +151,7 @@ namespace TagPlayer.ViewModels
             MainViewModel = mainViewModel;
             PlayingSongOperator = new PlayingSongOperator();
             PlayModel.Instance.SetPrograssBar = SetPrograssBar;
+            PlayModel.Instance.Media_End = MediaEnd;
 
             PlayPauseCommand = new DelegateCommand(OnPlayPause);
             NextCommand = new DelegateCommand(OnNext);
