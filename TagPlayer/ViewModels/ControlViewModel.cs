@@ -82,12 +82,14 @@ namespace TagPlayer.ViewModels
         private void OnNext()
         {
             MainViewModel.PlayingSong = PlayingSongOperator.OnNextExecute(PlayMode, MainViewModel.PlayList, MainViewModel.PlayList.IndexOf(MainViewModel.PlayingSong));
+            PlayModel.Instance.Play(MainViewModel.PlayingSong.Path);
         }
 
         public ICommand LastCommand { get; set; }
         private void OnLast()
         {
             MainViewModel.PlayingSong = PlayingSongOperator.OnLastExecute(PlayMode, MainViewModel.PlayList, MainViewModel.PlayList.IndexOf(MainViewModel.PlayingSong));
+            PlayModel.Instance.Play(MainViewModel.PlayingSong.Path);
         }
 
         public bool IsDrag { get; set; }
