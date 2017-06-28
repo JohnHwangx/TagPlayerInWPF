@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TagPlayer.Model;
 
 namespace TagPlayer.controls
 {
@@ -28,23 +29,27 @@ namespace TagPlayer.controls
         private void IncreaseButton_OnClick(object sender, RoutedEventArgs e)
         {
             SliderPlay.Value += (Mouse.GetPosition((IInputElement)e.Source).X + 6.5) / (SliderPlay.ActualWidth - 14) * SliderPlay.Maximum;
-            IsChangeBox.IsChecked = true;
+            //IsChangeBox.IsChecked = true;
+            PlayModel.Instance.IsChanged = true;
         }
 
         private void DecreaseButton_OnClick(object sender, RoutedEventArgs e)
         {
             SliderPlay.Value = Mouse.GetPosition((IInputElement)e.Source).X / (SliderPlay.ActualWidth - 14) * SliderPlay.Maximum;
-            IsChangeBox.IsChecked = true;
+            //IsChangeBox.IsChecked = true;
+            PlayModel.Instance.IsChanged = true;
         }
 
         private void Thumb_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
         {
-            IsDragBox.IsChecked = true;
+            //IsDragBox.IsChecked = true;
+            PlayModel.Instance.IsDrag = true;
         }
 
         private void Thumb_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            IsDragBox.IsChecked = false;
+            //IsDragBox.IsChecked = false;
+            PlayModel.Instance.IsDrag = true;
         }
     }
 }

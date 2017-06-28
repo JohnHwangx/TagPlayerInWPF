@@ -133,10 +133,10 @@
                     </Style>
                 </Slider.Style>
             </Slider>
-            <CheckBox x:Name="IsDragBox" Visibility="Collapsed"
+            <!--<CheckBox x:Name="IsDragBox" Visibility="Collapsed"
                       IsChecked="{Binding SongListService.ControlService.PlayService.IsDrag,Mode=TwoWay}"/>
             <CheckBox x:Name="IsChangeBox" Visibility="Collapsed"
-                      IsChecked="{Binding SongListService.ControlService.PlayService.IsChanged,Mode=TwoWay}"/>
+                      IsChecked="{Binding SongListService.ControlService.PlayService.IsChanged,Mode=TwoWay}"/>-->
             
             <TextBlock x:Name="LblTitle" 
                        Text="{Binding PlayingSong.Title}" 

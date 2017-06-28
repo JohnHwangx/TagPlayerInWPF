@@ -14,7 +14,6 @@ namespace TagPlayer.ViewModels
         /// 为了改变PlayList而加入
         /// </summary>
         public MainViewModel MainViewModel { get; set; }
-        //public SongListModel SongListModel { get; set; } = new SongListModel();
 
         private bool _isShow;
 
@@ -56,6 +55,7 @@ namespace TagPlayer.ViewModels
                 MainViewModel.ChangePlayList();
 
                 MainViewModel.PlayState = PlayState.播放;
+                PlayModel.Instance.Play(MainViewModel.PlayingSong.Path);
             }
         }
 
@@ -67,7 +67,6 @@ namespace TagPlayer.ViewModels
             if (songListItem == null) return;
             var selectedSong = songListItem.Song;
 
-            //var tagEditViewModel = new TagEditViewModel(selectedSong);
             var tagsEditViewModel = new TagsEditViewModel(selectedSong);
             var tagEditWindow = new TagsEditingWindow()
             {
@@ -76,9 +75,6 @@ namespace TagPlayer.ViewModels
             tagEditWindow.ShowDialog();
 
             if (tagEditWindow.DialogResult != true) return;
-            //SongListModel.ClearSongTags(songListItem.Song);//将数据库中该歌曲的标签清空
-            //selectedSong.Tags = new List<string>(tagsEditViewModel.SongTags);
-            //SongListModel.SaveSongTags(songListItem.Song);
         }
         public DelegateCommand<ListBox> AddCommand { get; set; }
 

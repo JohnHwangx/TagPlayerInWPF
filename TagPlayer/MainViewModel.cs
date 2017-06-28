@@ -73,7 +73,7 @@ namespace TagPlayer
             set
             {
                 _playState = value;
-                OnPlayStateChanged();
+                //OnPlayStateChanged();
                 RaisePropertyChanged("PlayState");
             }
         }
