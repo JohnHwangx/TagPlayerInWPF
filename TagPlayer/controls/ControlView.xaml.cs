@@ -29,27 +29,23 @@ namespace TagPlayer.controls
         private void IncreaseButton_OnClick(object sender, RoutedEventArgs e)
         {
             SliderPlay.Value += (Mouse.GetPosition((IInputElement)e.Source).X + 6.5) / (SliderPlay.ActualWidth - 14) * SliderPlay.Maximum;
-            //IsChangeBox.IsChecked = true;
             PlayModel.Instance.IsChanged = true;
         }
 
         private void DecreaseButton_OnClick(object sender, RoutedEventArgs e)
         {
             SliderPlay.Value = Mouse.GetPosition((IInputElement)e.Source).X / (SliderPlay.ActualWidth - 14) * SliderPlay.Maximum;
-            //IsChangeBox.IsChecked = true;
             PlayModel.Instance.IsChanged = true;
         }
 
         private void Thumb_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
         {
-            //IsDragBox.IsChecked = true;
             PlayModel.Instance.IsDrag = true;
         }
 
         private void Thumb_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            //IsDragBox.IsChecked = false;
-            PlayModel.Instance.IsDrag = true;
+            PlayModel.Instance.IsDrag = false;
         }
     }
 }
