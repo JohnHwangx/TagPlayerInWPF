@@ -74,11 +74,6 @@ namespace TagPlayer.Model
 
         public List<string> SongTags { get; set; }
 
-        //public void SetSongTags(List<string> songTags)
-        //{
-        //    SongTags = songTags;
-        //}
-
         public List<string> SelectTags { get; }
 
         public void SetTagModel(ref Button button, TagsType tagsType)

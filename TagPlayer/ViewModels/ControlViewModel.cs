@@ -94,8 +94,6 @@ namespace TagPlayer.ViewModels
             PlayModel.Instance.Play(MainViewModel.PlayingSong.Path);
         }
 
-        public bool IsDrag { get; set; }
-
         private double _period;
 
         /// <summary> 当前进度,对应Slider的Value </summary>
@@ -126,7 +124,7 @@ namespace TagPlayer.ViewModels
         /// </summary>
         private void SetPrograssBar()
         {
-            if (!IsDrag)
+            if (!PlayModel.Instance.IsDrag)
             {
                 var mediaPlayer = PlayModel.Instance.MediaPlayer;
                 int second = (int)mediaPlayer.Position.TotalSeconds % 60;
@@ -155,7 +153,6 @@ namespace TagPlayer.ViewModels
 
         public ControlViewModel(MainViewModel mainViewModel)
         {
-            //IsPlay = false;
             MainViewModel = mainViewModel;
             PlayingSongOperator = new PlayingSongOperator();
             PlayModel.Instance.SetPrograssBar = SetPrograssBar;
