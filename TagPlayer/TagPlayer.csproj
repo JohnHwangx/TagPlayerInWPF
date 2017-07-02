@@ -91,6 +91,7 @@
     <Compile Include="converter\SongListMenuConverter.cs" />
     <Compile Include="Model\DbOperator.cs" />
     <Compile Include="Model\PlayingSongOperator.cs" />
+    <Compile Include="Model\PlayListModel.cs" />
     <Compile Include="Model\PlayType.cs" />
     <Compile Include="Model\PlayModel.cs" />
     <Compile Include="Model\SongListModel.cs" />

@@ -7,7 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media.Imaging;
+using TagPlayer.controls;
+using TagPlayer.ViewModels;
 
 namespace TagPlayer.Model
 {
@@ -36,7 +39,7 @@ namespace TagPlayer.Model
                     }
                     else
                     {
-                        bitmapImage = new BitmapImage(new Uri(@"/Player4;component/Image/DefaultImage.png", UriKind.RelativeOrAbsolute));
+                        bitmapImage = new BitmapImage(new Uri(@"/TagPlayerInWPF;component/Image/DefaultImage.png", UriKind.RelativeOrAbsolute));
                     }
                     return bitmapImage;
                 }
@@ -82,6 +85,22 @@ namespace TagPlayer.Model
         {
             FileInfo fileInfo = new FileInfo(file);
             return fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf(".", StringComparison.Ordinal));
+        }
+
+        public static void EditSongTags(Selector listBox)
+        {
+            var songListItem = listBox.SelectedItem as SongListItem;
+            if (songListItem == null) return;
+            var selectedSong = songListItem.Song;
+
+            var tagsEditViewModel = new TagsEditViewModel(selectedSong);
+            var tagEditWindow = new TagsEditingWindow()
+            {
+                DataContext = tagsEditViewModel
+            };
+            tagEditWindow.ShowDialog();
+
+            if (tagEditWindow.DialogResult != true) return;
         }
     }
 }

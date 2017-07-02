@@ -69,10 +69,7 @@ namespace TagPlayer.ViewModels
         public DelegateCommand<ListBox> EditCommand { get; set; }
         private void OnEdit(Selector listBox)
         {
-            if (listBox.SelectedItem is SongListItem songListItem)
-            {
-                //todo
-            }
+            SongModel.EditSongTags(listBox);
         }
 
         public DelegateCommand<ListBox> DeleteCommand { get; set; }

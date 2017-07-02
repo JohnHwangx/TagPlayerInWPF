@@ -82,6 +82,10 @@ namespace TagPlayer.Model
         /// </summary>
         public static void SaveSongsDb(List<Song> songList)
         {
+            if (songList==null||!songList.Any())
+            {
+                return;
+            }
             if (!IsExistDb(DbName))//数据库不存在
             {
                 CreateDb(DbName);//创建数据库

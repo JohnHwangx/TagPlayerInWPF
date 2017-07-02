@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace TagPlayer.Model
 {
-    public class DbOperator
+    public abstract class DbOperator
     {
         private const string StrConn = @"Data Source=..\..\Database\PlayerDb.db;Version=3;";
         private static readonly SQLiteConnection Conn = new SQLiteConnection(StrConn);
-
+        /// <summary> 判断数据库是否存在 </summary>
         public static bool IsExistDb(string dbName)
         {
             if (File.Exists($@"..\..\Database\{dbName}.db"))
@@ -22,7 +22,7 @@ namespace TagPlayer.Model
             }
             return false;
         }
-
+        /// <summary> 判断数据表是否存在 </summary>
         public static bool IsExistTable(string tableName)
         {
             if (Conn.State != ConnectionState.Open)
@@ -42,13 +42,13 @@ namespace TagPlayer.Model
             comm.Dispose();
             return false;
         }
-
+        /// <summary> 创建数据库 </summary>
         public static void CreateDb(string dbName)
         {
             Directory.CreateDirectory($@"..\..\Database");
             SQLiteConnection.CreateFile($@"..\..\Database\{dbName}.db");
         }
-
+        /// <summary> 创建数据表 </summary>
         public static void CreateTable(string dbName, string tableName, string columnName)
         {
             if (Conn.State != ConnectionState.Open)

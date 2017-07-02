@@ -104,24 +104,5 @@ namespace TagPlayer.Model
             }
             RandomNumList = new List<int>(randomNumList);
         }
-
-        public List<int> GetRandomList(List<Song> playingList)
-        {
-            var randomNumList = new int[playingList.Count];
-            for (int i = 0; i < playingList.Count; i++)
-            {
-                randomNumList[i] = i;
-            }
-
-            Random randomNumbers = new Random();
-            for (int i = 0; i < playingList.Count; i++)
-            {
-                int randomNum = randomNumbers.Next(playingList.Count);
-                var temp = randomNumList[i];
-                randomNumList[i] = randomNumList[randomNum];
-                randomNumList[randomNum] = temp;
-            }
-            return randomNumList.ToList();
-        }
     }
 }

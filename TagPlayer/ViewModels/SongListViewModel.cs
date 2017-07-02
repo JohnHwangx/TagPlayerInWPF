@@ -63,18 +63,7 @@ namespace TagPlayer.ViewModels
         public DelegateCommand<ListBox> EditCommand { get; set; }
         private void OnEdit(Selector listBox)
         {
-            var songListItem = listBox.SelectedItem as SongListItem;
-            if (songListItem == null) return;
-            var selectedSong = songListItem.Song;
-
-            var tagsEditViewModel = new TagsEditViewModel(selectedSong);
-            var tagEditWindow = new TagsEditingWindow()
-            {
-                DataContext = tagsEditViewModel
-            };
-            tagEditWindow.ShowDialog();
-
-            if (tagEditWindow.DialogResult != true) return;
+            SongModel.EditSongTags(listBox);
         }
         public DelegateCommand<ListBox> AddCommand { get; set; }
 
