@@ -9,7 +9,7 @@ namespace TagPlayer.Model
     public class PlayListModel:DbOperator
     {
         private const string DbName = "PlayerDb";
-        private const string TableName = "SongList";
+        private const string TableName = "PlayList";
         /// <summary>
         /// 将歌曲存入数据库
         /// </summary>
@@ -38,6 +38,42 @@ namespace TagPlayer.Model
                 var insertSql = "'" + EscConvertor(song.Path)+ "'";
                 InsertTable(DbName, TableName, columnSql, insertSql);
             }
+        }
+        /// <summary>
+        /// 读取数据库歌曲到歌曲列表
+        /// </summary>
+        public static List<Song> GetSongsDb(List<Song> songs)
+        {
+
+            var songList = new List<Song>();
+            if (!IsExistDb(DbName) || !IsExistTable(TableName))
+            {
+                return songList;
+            }
+            var selectSql = @"select * from " + TableName;
+            var dataReader = TableDataReader(DbName, selectSql);
+            while (dataReader.Read())
+            {
+                //songList.Add(new Song
+                //{
+                //    Path = dataReader[0].ToString().Trim(),
+                //    Title = dataReader[1].ToString().Trim(),
+                //    Artist = dataReader[2].ToString().Trim(),
+                //    Album = dataReader[3].ToString().Trim(),
+                //    Duration = dataReader[4].ToString().Trim(),
+                //});
+
+                var Path = dataReader[0].ToString().Trim();
+                //if (songs.Select(i => i.Path).Contains(Path))
+                {
+                    var song = songs.Where(i => i.Path == Path).FirstOrDefault();
+                    songList.Add(song);
+                }
+            }
+            dataReader.Dispose();
+            dataReader.Close();
+
+            return songList;
         }
     }
 }
