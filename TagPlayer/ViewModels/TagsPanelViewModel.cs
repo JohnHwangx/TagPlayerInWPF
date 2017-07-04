@@ -19,7 +19,7 @@ namespace TagPlayer.ViewModels
 
         private void OnLoadSongList()
         {
-            MainViewModel.SongList = SongListModel.LoadDirectorySongList();
+            MainViewModel.SongList = SongListOperator.Instance.LoadDirectorySongList();
         }
 
         public ICommand SureCommand { get; set; }

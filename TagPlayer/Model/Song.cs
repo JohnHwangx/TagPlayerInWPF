@@ -19,6 +19,12 @@ namespace TagPlayer.Model
         private int _star;
         public List<string> Tags { get; set; }
 
+        public Song(string path,string title)
+        {
+            Path = path;
+            Title = title;
+        }
+
         public Song(string path)
         {
             var songModel = new SongModel();

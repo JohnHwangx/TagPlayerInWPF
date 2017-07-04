@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Xml.Linq;
@@ -27,7 +28,8 @@ namespace TagPlayer.Model
                     (File.GetAttributes(path) & FileAttributes.Hidden) != FileAttributes.Hidden &&
                     Path.GetExtension(path) == ".mp3")
                 {
-                    Song song = new Song(path);
+                    Song song = new Song(path,path);
+                    Thread.Sleep(100);
                     songList.Add(song);
                 }
                 else if (Directory.Exists(path) &&
@@ -37,6 +39,8 @@ namespace TagPlayer.Model
                 }
             }
         }
+
+        private delegate void TaskDelegate(string path, List<Song> songList);
 
         /// <summary>
         /// 从文件夹加载歌曲列表
@@ -50,10 +54,13 @@ namespace TagPlayer.Model
             {
                 if (dirChooser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    LoadSongs(dirChooser.SelectedPath, songList);
+                    //LoadSongs(dirChooser.SelectedPath, songList);
+                    TaskDelegate task = LoadSongs;
+                    IAsyncResult asyncResult = task.BeginInvoke(dirChooser.SelectedPath, songList, null, null);
+                    task.EndInvoke(asyncResult);
                 }
             }
-            SaveSongsDb(songList);
+            //SaveSongsDb(songList);
             return songList;
         }
         /// <summary>
