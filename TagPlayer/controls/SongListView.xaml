@@ -77,6 +77,14 @@
                                   Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count,Converter={StaticResource SongListPlay_AddConverter}}"
                                   Command="{Binding SongListViewModel.AddCommand}" 
                                   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
+                        <MenuItem x:Name="MenuItem删除" Header="删除当前歌曲" 
+                                  Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count,Converter={StaticResource SongListPlay_AddConverter}}"
+                                  Command="{Binding SongListViewModel.DeleteCommand}" 
+                                  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
+                        <MenuItem x:Name="MenuItem清空" Header="清空歌曲" 
+                                  Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems.Count,Converter={StaticResource SongListPlay_AddConverter}}"
+                                  Command="{Binding SongListViewModel.ClearCommand}" 
+                                  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget}"/>
                     </ContextMenu>
                 </ListBox.ContextMenu>
                 <ListBox.ItemTemplate >

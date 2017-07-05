@@ -9,6 +9,7 @@ using Prism.Commands;
 using TagPlayer.Model;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Collections.ObjectModel;
 
 namespace TagPlayer.ViewModels
 {
@@ -30,9 +31,9 @@ namespace TagPlayer.ViewModels
             }
         }
 
-        private List<SongListItem> _disPlayList;
+        private ObservableCollection<SongListItem> _disPlayList;
 
-        public List<SongListItem> DisPlayList
+        public ObservableCollection<SongListItem> DisPlayList
         {
             get { return _disPlayList; }
             set
@@ -78,7 +79,7 @@ namespace TagPlayer.ViewModels
             if (listBox.SelectedItem is SongListItem songListItem)
             {
                 var selectedSong = songListItem.Song;
-                MainViewModel.DeletePlayList(selectedSong);
+                //MainViewModel.DeletePlayList(selectedSong);
             }
         }
 

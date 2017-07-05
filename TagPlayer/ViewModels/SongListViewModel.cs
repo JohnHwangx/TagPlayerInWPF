@@ -1,6 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using TagPlayer.controls;
@@ -28,9 +29,9 @@ namespace TagPlayer.ViewModels
         }
 
 
-        private List<SongListItem> _disSongList;
+        private ObservableCollection<SongListItem> _disSongList;
 
-        public List<SongListItem> DisSongList
+        public ObservableCollection<SongListItem> DisSongList
         {
             get { return _disSongList; }
             set
@@ -60,6 +61,24 @@ namespace TagPlayer.ViewModels
         }
 
         public DelegateCommand<ListBox> PlayMenuCommand { get; set; }
+        private void OnPlay(ListBox listBox)
+        {
+            var songListItems = listBox.SelectedItems;
+            if (songListItems != null && songListItems.Count != 0)
+            {
+                var selectedSongs = new List<Song>();
+                foreach (SongListItem songListItem in songListItems)
+                {
+                    selectedSongs.Add(songListItem.Song);
+                }
+                MainViewModel.ChangePlayList(selectedSongs);
+                MainViewModel.ChangePlayingSong(selectedSongs[0]);
+
+                MainViewModel.PlayState = PlayState.播放;
+                PlayModel.Instance.Play(MainViewModel.PlayingSong.Path);
+            }
+        }
+
         public DelegateCommand<ListBox> EditCommand { get; set; }
         private void OnEdit(Selector listBox)
         {
@@ -76,16 +95,33 @@ namespace TagPlayer.ViewModels
             }
         }
 
+        public DelegateCommand<ListBox> DeleteCommand { get; set; }
+
+        private void OnDelete(ListBox listBox)
+        {
+            var songListItems = listBox.SelectedItems;
+            if (songListItems!=null&& songListItems.Count!=0)
+            {
+                var selectedSongs = new List<Song>();
+                foreach (SongListItem songListItem in songListItems)
+                {
+                    selectedSongs.Add(songListItem.Song);
+                }
+                MainViewModel.DeleteAtSongList(selectedSongs);
+            }
+        }
+
         public SongListViewModel(MainViewModel mainViewModel)
         {
             IsShow = false;
             MainViewModel = mainViewModel;
-            DisSongList = new List<SongListItem>();
+            DisSongList = new ObservableCollection<SongListItem>();
 
             DoubleClickCommand = new DelegateCommand<ListBox>(OnDoubleClick);
-            PlayMenuCommand = new DelegateCommand<ListBox>(OnDoubleClick);
+            PlayMenuCommand = new DelegateCommand<ListBox>(OnPlay);
             EditCommand = new DelegateCommand<ListBox>(OnEdit);
             AddCommand = new DelegateCommand<ListBox>(OnAdd);
+            DeleteCommand = new DelegateCommand<ListBox>(OnDelete);
         }
     }
 }

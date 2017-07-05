@@ -31,17 +31,17 @@ namespace TagPlayer.Model
             {
                 if (dirChooser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    //LoadSongs(dirChooser.SelectedPath, songList);
+                    LoadSongs(dirChooser.SelectedPath, songList);
                     /****/
                     //TaskDelegate task = LoadSongs;
                     //IAsyncResult asyncResult = task.BeginInvoke(dirChooser.SelectedPath, songList, null, null);
                     //task.EndInvoke(asyncResult);
                     /****/
-                    TaskDelegate task = LoadSongs;
-                    Dispatcher.Invoke(task, dirChooser.SelectedPath, songList);
+                    //TaskDelegate task = LoadSongs;
+                    //Dispatcher.Invoke(task, dirChooser.SelectedPath, songList);
                 }
             }
-            //SaveSongsDb(songList);
+            SongListModel.SaveSongsDb(songList);
             return songList;
         }
 
@@ -54,8 +54,9 @@ namespace TagPlayer.Model
                     (File.GetAttributes(path) & FileAttributes.Hidden) != FileAttributes.Hidden &&
                     Path.GetExtension(path) == ".mp3")
                 {
-                    Song song = new Song(path, path);
-                    Thread.Sleep(100);
+                    Song song = new Song(path);
+                    //Song song = new Song(path, path);
+                    //Thread.Sleep(100);
                     songList.Add(song);
                 }
                 else if (Directory.Exists(path) &&

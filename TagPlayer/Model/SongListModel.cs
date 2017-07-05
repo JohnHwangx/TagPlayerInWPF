@@ -68,9 +68,9 @@ namespace TagPlayer.Model
         /// </summary>
         /// <param name="songs"></param>
         /// <returns></returns>
-        public static List<SongListItem> InitialSongList(List<Song> songs)
+        public static ObservableCollection<SongListItem> InitialSongList(List<Song> songs)
         {
-            var songList = new List<SongListItem>();
+            var songList = new ObservableCollection<SongListItem>();
             for (int i = 0; i < songs.Count; i++)
             {
                 songList.Add(new SongListItem

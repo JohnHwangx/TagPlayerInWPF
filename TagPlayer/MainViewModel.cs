@@ -65,7 +65,7 @@ namespace TagPlayer
             }
         }
 
-        private PlayState _playState=PlayState.暂停;
+        private PlayState _playState = PlayState.暂停;
 
         public PlayState PlayState
         {
@@ -125,6 +125,11 @@ namespace TagPlayer
             }
         }
 
+        public void ChangePlayList(List<Song> songs)
+        {
+            PlayList = new List<Song>(songs);
+        }
+
         public void ChangePlayingSong(Song song)
         {
             if (!Equals(song, PlayingSong))
@@ -142,6 +147,20 @@ namespace TagPlayer
                     song
                 };
                 PlayList = tempList;
+            }
+        }
+
+        public void DeleteAtSongList(List<Song> songs)
+        {
+            if (SongList != null)
+            {
+                var tempList = new List<Song>(SongList);
+                foreach (var song in songs)
+                {
+                    tempList.Remove(song);
+                }
+                SongList = tempList;
+                //SongListModel.SaveSongsDb(SongList);
             }
         }
 
