@@ -86,12 +86,17 @@ namespace TagPlayer.ViewModels
         }
         public DelegateCommand<ListBox> AddCommand { get; set; }
 
-        private void OnAdd(Selector listBox)
+        private void OnAdd(ListBox listBox)
         {
-            if (listBox.SelectedItem is SongListItem songListItem)
+            var songListItems = listBox.SelectedItems;
+            if (songListItems != null && songListItems.Count != 0)
             {
-                var selectedSong = songListItem.Song;
-                MainViewModel.AddPlayList(selectedSong);
+                var selectedSongs = new List<Song>();
+                foreach (SongListItem songListItem in songListItems)
+                {
+                    selectedSongs.Add(songListItem.Song);
+                }
+                MainViewModel.AddPlayList(selectedSongs);
             }
         }
 

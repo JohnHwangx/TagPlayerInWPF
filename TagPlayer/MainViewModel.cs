@@ -138,14 +138,12 @@ namespace TagPlayer
             }
         }
 
-        public void AddPlayList(Song song)
+        public void AddPlayList(List<Song> songs)
         {
             if (PlayList != null)
             {
-                var tempList = new List<Song>(PlayList)
-                {
-                    song
-                };
+                var tempList = new List<Song>(PlayList);
+                tempList.AddRange(songs);
                 PlayList = tempList;
             }
         }
