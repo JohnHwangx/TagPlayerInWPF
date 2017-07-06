@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using TagPlayer.controls;
@@ -28,7 +29,6 @@ namespace TagPlayer.ViewModels
             }
         }
 
-
         private ObservableCollection<SongListItem> _disSongList;
 
         public ObservableCollection<SongListItem> DisSongList
@@ -43,7 +43,7 @@ namespace TagPlayer.ViewModels
 
         public void InitialSongList(List<Song> songList)
         {
-            DisSongList = SongListModel.InitialSongList(songList);
+            DisSongList = SongListOperator.Instance.InitialSongList(songList);
         }
 
         public DelegateCommand<ListBox> DoubleClickCommand { get; set; }
@@ -63,20 +63,12 @@ namespace TagPlayer.ViewModels
         public DelegateCommand<ListBox> PlayMenuCommand { get; set; }
         private void OnPlay(ListBox listBox)
         {
-            var songListItems = listBox.SelectedItems;
-            if (songListItems != null && songListItems.Count != 0)
-            {
-                var selectedSongs = new List<Song>();
-                foreach (SongListItem songListItem in songListItems)
-                {
-                    selectedSongs.Add(songListItem.Song);
-                }
-                MainViewModel.ChangePlayList(selectedSongs);
-                MainViewModel.ChangePlayingSong(selectedSongs[0]);
+            var selectedSongs = GetSelectedSongs(listBox);
+            MainViewModel.ChangePlayList(selectedSongs);
+            MainViewModel.ChangePlayingSong(selectedSongs[0]);
 
-                MainViewModel.PlayState = PlayState.播放;
-                PlayModel.Instance.Play(MainViewModel.PlayingSong.Path);
-            }
+            MainViewModel.PlayState = PlayState.播放;
+            PlayModel.Instance.Play(MainViewModel.PlayingSong.Path);
         }
 
         public DelegateCommand<ListBox> EditCommand { get; set; }
@@ -88,32 +80,42 @@ namespace TagPlayer.ViewModels
 
         private void OnAdd(ListBox listBox)
         {
-            var songListItems = listBox.SelectedItems;
-            if (songListItems != null && songListItems.Count != 0)
-            {
-                var selectedSongs = new List<Song>();
-                foreach (SongListItem songListItem in songListItems)
-                {
-                    selectedSongs.Add(songListItem.Song);
-                }
-                MainViewModel.AddPlayList(selectedSongs);
-            }
+            var selectedSongs = GetSelectedSongs(listBox);
+            MainViewModel.AddPlayList(selectedSongs);
         }
 
         public DelegateCommand<ListBox> DeleteCommand { get; set; }
 
         private void OnDelete(ListBox listBox)
         {
+            var selectedSongs = GetSelectedSongs(listBox);
+            MainViewModel.DeleteAtSongList(selectedSongs);
+        }
+
+        public DelegateCommand<ListBox> ClearCommand { get; set; }
+
+        private void OnClear(ListBox listBox)
+        {
+            var selectedSongs = GetSelectedSongs(listBox, true);
+            MainViewModel.DeleteAtSongList(selectedSongs);
+        }
+
+        private List<Song> GetSelectedSongs(ListBox listBox, bool isAll = false)
+        {
+            var selectedSongs = new List<Song>();
             var songListItems = listBox.SelectedItems;
-            if (songListItems!=null&& songListItems.Count!=0)
+            if (isAll)
             {
-                var selectedSongs = new List<Song>();
+                songListItems = listBox.Items;
+            }
+            if (songListItems.Count != 0)
+            {
                 foreach (SongListItem songListItem in songListItems)
                 {
                     selectedSongs.Add(songListItem.Song);
                 }
-                MainViewModel.DeleteAtSongList(selectedSongs);
             }
+            return selectedSongs;
         }
 
         public SongListViewModel(MainViewModel mainViewModel)
@@ -127,6 +129,7 @@ namespace TagPlayer.ViewModels
             EditCommand = new DelegateCommand<ListBox>(OnEdit);
             AddCommand = new DelegateCommand<ListBox>(OnAdd);
             DeleteCommand = new DelegateCommand<ListBox>(OnDelete);
+            ClearCommand = new DelegateCommand<ListBox>(OnClear);
         }
     }
 }

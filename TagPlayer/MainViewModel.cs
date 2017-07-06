@@ -15,7 +15,6 @@ namespace TagPlayer
 {
     public class MainViewModel : BindableBase
     {
-        //public PlayingSongOperator PlayingSongOperator { get; set; } = new PlayingSongOperator();
         public bool IsSongListChanged { get; set; }
 
         private List<Song> _songList;
@@ -119,8 +118,6 @@ namespace TagPlayer
                 IsSongListChanged = false;
                 PlayList.Clear();
 
-                //var tempList = new List<Song>();
-                //SongList.ForEach(i => tempList.Add(i));
                 PlayList = new List<Song>(SongList);
             }
         }
@@ -158,17 +155,7 @@ namespace TagPlayer
                     tempList.Remove(song);
                 }
                 SongList = tempList;
-                //SongListModel.SaveSongsDb(SongList);
-            }
-        }
-
-        public void DeletePlayList(Song song)
-        {
-            if (PlayList != null)
-            {
-                var tempList = new List<Song>(PlayList);
-                tempList.Remove(song);
-                PlayList = tempList;
+                SongListModel.Instance.ChangeSongList(SongList);
             }
         }
 
@@ -190,7 +177,7 @@ namespace TagPlayer
         {
             SongListViewModel = new SongListViewModel(this);
 
-            SongList = SongListModel.GetSongsDb();
+            SongList = SongListModel.Instance.GetSongsDb();
             PlayList = new List<Song>();
             TagsPanelViewModel = new TagsPanelViewModel(this);
             ControlViewModel = new ControlViewModel(this);

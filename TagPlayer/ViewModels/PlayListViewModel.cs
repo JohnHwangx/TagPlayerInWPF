@@ -45,7 +45,7 @@ namespace TagPlayer.ViewModels
 
         public void InitialPlayList(List<Song> songList)
         {
-            DisPlayList = SongListModel.InitialSongList(songList);
+            DisPlayList = SongListOperator.Instance.InitialSongList(songList);
         }
 
         public ICommand ShowPlayListCommand { get; set; }

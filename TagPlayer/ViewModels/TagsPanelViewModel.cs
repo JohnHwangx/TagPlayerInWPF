@@ -25,7 +25,7 @@ namespace TagPlayer.ViewModels
         public ICommand SureCommand { get; set; }
         private void OnSure()
         {
-            MainViewModel.SongList = SongListModel.GetSelectedSongs(TagButtonModel.Instance.SelectTags);
+            MainViewModel.SongList = SongListModel.Instance.GetSelectedSongs(TagButtonModel.Instance.SelectTags);
         }
 
         public ICommand PlaySongCommand { get; set; }

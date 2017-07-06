@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace TagPlayer.Model
@@ -41,7 +43,7 @@ namespace TagPlayer.Model
                     //Dispatcher.Invoke(task, dirChooser.SelectedPath, songList);
                 }
             }
-            SongListModel.SaveSongsDb(songList);
+            SongListModel.Instance.SaveSongsDb(songList);
             return songList;
         }
 
@@ -68,5 +70,27 @@ namespace TagPlayer.Model
         }
 
         private delegate void TaskDelegate(string path, List<Song> songList);
+
+        /// <summary>
+        /// 将歌曲集合转化为歌曲列表
+        /// </summary>
+        /// <param name="songs"></param>
+        /// <returns></returns>
+        public ObservableCollection<SongListItem> InitialSongList(List<Song> songs)
+        {
+            var songList = new ObservableCollection<SongListItem>();
+            for (int i = 0; i < songs.Count; i++)
+            {
+                songList.Add(new SongListItem
+                {
+                    Song = songs[i],
+                    SongNum = i + 1,
+                    Color = i % 2 == 1
+                        ? new SolidColorBrush(Colors.White)
+                        : new SolidColorBrush(Colors.AliceBlue)
+                });
+            }
+            return songList;
+        }
     }
 }

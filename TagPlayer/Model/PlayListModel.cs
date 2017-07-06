@@ -13,7 +13,7 @@ namespace TagPlayer.Model
         /// <summary>
         /// 将歌曲存入数据库
         /// </summary>
-        public static void SaveSongsDb(List<Song> songList)
+        public void SaveSongsDb(List<Song> songList)
         {
             if (songList == null || !songList.Any())
             {
@@ -42,7 +42,7 @@ namespace TagPlayer.Model
         /// <summary>
         /// 读取数据库歌曲到歌曲列表
         /// </summary>
-        public static List<Song> GetSongsDb(List<Song> songs)
+        public List<Song> GetSongsDb(List<Song> songs)
         {
 
             var songList = new List<Song>();

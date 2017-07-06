@@ -12,9 +12,9 @@ namespace TagPlayer.Model
     public abstract class DbOperator
     {
         private const string StrConn = @"Data Source=..\..\Database\PlayerDb.db;Version=3;";
-        private static readonly SQLiteConnection Conn = new SQLiteConnection(StrConn);
+        private readonly SQLiteConnection Conn = new SQLiteConnection(StrConn);
         /// <summary> 判断数据库是否存在 </summary>
-        public static bool IsExistDb(string dbName)
+        public bool IsExistDb(string dbName)
         {
             if (File.Exists($@"..\..\Database\{dbName}.db"))
             {
@@ -23,7 +23,7 @@ namespace TagPlayer.Model
             return false;
         }
         /// <summary> 判断数据表是否存在 </summary>
-        public static bool IsExistTable(string tableName)
+        public bool IsExistTable(string tableName)
         {
             if (Conn.State != ConnectionState.Open)
             {
@@ -43,13 +43,13 @@ namespace TagPlayer.Model
             return false;
         }
         /// <summary> 创建数据库 </summary>
-        public static void CreateDb(string dbName)
+        public void CreateDb(string dbName)
         {
             Directory.CreateDirectory($@"..\..\Database");
             SQLiteConnection.CreateFile($@"..\..\Database\{dbName}.db");
         }
         /// <summary> 创建数据表 </summary>
-        public static void CreateTable(string dbName, string tableName, string columnName)
+        public void CreateTable(string dbName, string tableName, string columnName)
         {
             if (Conn.State != ConnectionState.Open)
             {
@@ -61,7 +61,7 @@ namespace TagPlayer.Model
             comm.Dispose();
         }
 
-        public static void InsertTable(string dbName, string tableName, string columnName, string parameter)
+        public void InsertTable(string dbName, string tableName, string columnName, string parameter)
         {
             if (Conn.State != ConnectionState.Open)
             {
@@ -74,7 +74,7 @@ namespace TagPlayer.Model
             comm.Dispose();
         }
 
-        public static SQLiteDataReader TableDataReader(string dbName, string select)
+        public SQLiteDataReader TableDataReader(string dbName, string select)
         {
             if (Conn.State != ConnectionState.Open)
             {
@@ -92,7 +92,7 @@ namespace TagPlayer.Model
             return s.Replace("'", "''");
         }
 
-        public static void ClearTable(string dbName, string tableName)
+        public void ClearTable(string dbName, string tableName)
         {
             if (Conn.State != ConnectionState.Open)
             {
@@ -105,7 +105,7 @@ namespace TagPlayer.Model
             comm.Dispose();
         }
 
-        public static void UpdateTable(string dbName, string tableName, string param, string path)
+        public void UpdateTable(string dbName, string tableName, string param, string path)
         {
             if (Conn.State != ConnectionState.Open)
             {
