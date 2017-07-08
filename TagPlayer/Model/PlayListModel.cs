@@ -6,19 +6,13 @@ using System.Threading.Tasks;
 
 namespace TagPlayer.Model
 {
-    public class PlayListModel:DbOperator
+    public class PlayListModel : DbOperator
     {
         private const string DbName = "PlayerDb";
         private const string TableName = "PlayList";
-        /// <summary>
-        /// 将歌曲存入数据库
-        /// </summary>
-        public void SaveSongsDb(List<Song> songList)
+
+        private PlayListModel()
         {
-            if (songList == null || !songList.Any())
-            {
-                return;
-            }
             if (!IsExistDb(DbName))//数据库不存在
             {
                 CreateDb(DbName);//创建数据库
@@ -28,52 +22,64 @@ namespace TagPlayer.Model
                 string createTableSql = @"path nvarchar(400) primary key";
                 CreateTable(DbName, TableName, createTableSql);//创建数据表
             }
-            else
-            {
-                ClearTable(DbName, TableName);
-            }
+        }
+
+        private static PlayListModel _instance;
+
+        public static PlayListModel Instance
+        {
+            get { return _instance ?? (_instance = new PlayListModel()); }
+        }
+
+        /// <summary>
+        /// 将歌曲存入数据库
+        /// </summary>
+        public void SaveSongs(List<Song> songList)
+        {
+            DropTable(TableName);
             var columnSql = @"path";
             foreach (var song in songList)
             {
-                var insertSql = "'" + EscConvertor(song.Path)+ "'";
+                var insertSql = "'" + EscConvertor(song.Path) + "'";
                 InsertTable(DbName, TableName, columnSql, insertSql);
             }
         }
         /// <summary>
-        /// 读取数据库歌曲到歌曲列表
+        /// 读数据库歌曲，从歌曲列表中获取播放列表
         /// </summary>
-        public List<Song> GetSongsDb(List<Song> songs)
+        /// <param name="songs">歌曲列表</param>
+        /// <returns>播放列表</returns>
+        public List<Song> LoadSongs(List<Song> songs)
         {
-
             var songList = new List<Song>();
-            if (!IsExistDb(DbName) || !IsExistTable(TableName))
-            {
-                return songList;
-            }
+
             var selectSql = @"select * from " + TableName;
             var dataReader = TableDataReader(DbName, selectSql);
             while (dataReader.Read())
             {
-                //songList.Add(new Song
-                //{
-                //    Path = dataReader[0].ToString().Trim(),
-                //    Title = dataReader[1].ToString().Trim(),
-                //    Artist = dataReader[2].ToString().Trim(),
-                //    Album = dataReader[3].ToString().Trim(),
-                //    Duration = dataReader[4].ToString().Trim(),
-                //});
-
                 var Path = dataReader[0].ToString().Trim();
-                //if (songs.Select(i => i.Path).Contains(Path))
-                {
-                    var song = songs.Where(i => i.Path == Path).FirstOrDefault();
-                    songList.Add(song);
-                }
+                var song = songs.Where(i => i.Path == Path).FirstOrDefault();
+                songList.Add(song);
             }
             dataReader.Dispose();
             dataReader.Close();
 
             return songList;
+        }
+
+        public void DropTable()
+        {
+            DropTable(TableName);
+        }
+
+        public void Deleta(List<Song> songList)
+        {
+            var columnSql = @"path";
+            foreach (var song in songList)
+            {
+                var deleteSql = $"Path={EscConvertor(song.Path)}";
+                DeleteTable(DbName, TableName, columnSql, deleteSql);
+            }
         }
     }
 }

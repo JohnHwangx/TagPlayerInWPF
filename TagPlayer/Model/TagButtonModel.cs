@@ -113,6 +113,31 @@ namespace TagPlayer.Model
             var userControl = tagsEditWindow.TagsViewControl;
             userControl.ClearTags();
         }
+
+        /// <summary>
+        /// 从XML文件中获得所有标签
+        /// </summary>
+        /// <returns>标签集合</returns>
+        public List<string> GetAllTags()
+        {
+            var tagList = new List<string>();
+            //string xmlFileName = Path.Combine(Environment.CurrentDirectory, @"Image\SongTags.xml");
+            var path = @"..\..\Image\SongTags.xml";
+            XDocument xDoc = XDocument.Load(path/*@"C:\Users\john\Source\Repos\Player4\Player4\Image\SongTags.xml"*/);
+            var tags = xDoc.Descendants("Tags");
+            foreach (var category in tags)
+            {
+                foreach (var tag in category.Elements())
+                {
+                    foreach (var xElement in tag.Elements())
+                    {
+                        tagList.Add(xElement.Value);
+                    }
+                }
+            }
+            //MessageBox.Show(tagList.Count.ToString());
+            return tagList;
+        }
     }
 
     public enum TagsType

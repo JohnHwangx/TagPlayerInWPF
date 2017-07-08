@@ -43,7 +43,7 @@ namespace TagPlayer.Model
                     //Dispatcher.Invoke(task, dirChooser.SelectedPath, songList);
                 }
             }
-            SongListModel.Instance.SaveSongsDb(songList);
+            SongListModel.Instance.SaveSongs(songList);
             return songList;
         }
 

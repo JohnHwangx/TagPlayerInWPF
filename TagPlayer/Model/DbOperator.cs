@@ -14,7 +14,7 @@ namespace TagPlayer.Model
         private const string StrConn = @"Data Source=..\..\Database\PlayerDb.db;Version=3;";
         private readonly SQLiteConnection Conn = new SQLiteConnection(StrConn);
         /// <summary> 判断数据库是否存在 </summary>
-        public bool IsExistDb(string dbName)
+        protected bool IsExistDb(string dbName)
         {
             if (File.Exists($@"..\..\Database\{dbName}.db"))
             {
@@ -23,7 +23,7 @@ namespace TagPlayer.Model
             return false;
         }
         /// <summary> 判断数据表是否存在 </summary>
-        public bool IsExistTable(string tableName)
+        protected bool IsExistTable(string tableName)
         {
             if (Conn.State != ConnectionState.Open)
             {
@@ -43,13 +43,13 @@ namespace TagPlayer.Model
             return false;
         }
         /// <summary> 创建数据库 </summary>
-        public void CreateDb(string dbName)
+        protected void CreateDb(string dbName)
         {
             Directory.CreateDirectory($@"..\..\Database");
             SQLiteConnection.CreateFile($@"..\..\Database\{dbName}.db");
         }
         /// <summary> 创建数据表 </summary>
-        public void CreateTable(string dbName, string tableName, string columnName)
+        protected void CreateTable(string dbName, string tableName, string columnName)
         {
             if (Conn.State != ConnectionState.Open)
             {
@@ -61,7 +61,7 @@ namespace TagPlayer.Model
             comm.Dispose();
         }
 
-        public void InsertTable(string dbName, string tableName, string columnName, string parameter)
+        protected void InsertTable(string dbName, string tableName, string columnName, string parameter)
         {
             if (Conn.State != ConnectionState.Open)
             {
@@ -74,7 +74,32 @@ namespace TagPlayer.Model
             comm.Dispose();
         }
 
-        public SQLiteDataReader TableDataReader(string dbName, string select)
+        protected void DeleteTable(string dbName,string tableName,string columnName,string parameter)
+        {
+            if (Conn.State != ConnectionState.Open)
+            {
+                Conn.Open();
+            }
+            var tableSql = $"delete from {tableName} where {parameter}";
+            var comm = new SQLiteCommand(tableSql, Conn);
+            comm.ExecuteNonQuery();
+            comm.Dispose();
+        }
+
+        protected void DropTable(string tableName)
+        {
+            if (Conn.State != ConnectionState.Open)
+            {
+                Conn.Open();
+            }
+
+            var tableSql = $"drop table {tableName}";
+            var comm = new SQLiteCommand(tableSql, Conn);
+            comm.ExecuteNonQuery();
+            comm.Dispose();
+        }
+
+        protected SQLiteDataReader TableDataReader(string dbName, string select)
         {
             if (Conn.State != ConnectionState.Open)
             {
@@ -87,25 +112,25 @@ namespace TagPlayer.Model
             return dataReader;
         }
 
-        public static string EscConvertor(string s)
+        protected static string EscConvertor(string s)
         {
             return s.Replace("'", "''");
         }
 
-        public void ClearTable(string dbName, string tableName)
-        {
-            if (Conn.State != ConnectionState.Open)
-            {
-                Conn.Open();
-            }
-            //string clearSql = $"truncate table {tableName}";
-            string clearSql = $"delete from {tableName}";
-            var comm = new SQLiteCommand(clearSql, Conn);
-            comm.ExecuteNonQuery();
-            comm.Dispose();
-        }
+        //public void ClearTable(string dbName, string tableName)
+        //{
+        //    if (Conn.State != ConnectionState.Open)
+        //    {
+        //        Conn.Open();
+        //    }
+        //    //string clearSql = $"truncate table {tableName}";
+        //    string clearSql = $"delete from {tableName}";
+        //    var comm = new SQLiteCommand(clearSql, Conn);
+        //    comm.ExecuteNonQuery();
+        //    comm.Dispose();
+        //}
 
-        public void UpdateTable(string dbName, string tableName, string param, string path)
+        protected void UpdateTable(string dbName, string tableName, string param, string path)
         {
             if (Conn.State != ConnectionState.Open)
             {

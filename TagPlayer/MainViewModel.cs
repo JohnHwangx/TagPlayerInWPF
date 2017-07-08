@@ -125,6 +125,7 @@ namespace TagPlayer
         public void ChangePlayList(List<Song> songs)
         {
             PlayList = new List<Song>(songs);
+            PlayListModel.Instance.SaveSongs(PlayList);
         }
 
         public void ChangePlayingSong(Song song)
@@ -142,6 +143,7 @@ namespace TagPlayer
                 var tempList = new List<Song>(PlayList);
                 tempList.AddRange(songs);
                 PlayList = tempList;
+                PlayListModel.Instance.SaveSongs(PlayList);
             }
         }
 
@@ -155,7 +157,7 @@ namespace TagPlayer
                     tempList.Remove(song);
                 }
                 SongList = tempList;
-                SongListModel.Instance.ChangeSongList(SongList);
+                SongListModel.Instance.DeleteSongs(SongList);
             }
         }
 

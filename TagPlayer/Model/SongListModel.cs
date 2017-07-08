@@ -28,7 +28,7 @@ namespace TagPlayer.Model
             if (!IsExistTable(TableName))//表不存在
             {
                 string createTableSql = @"path nvarchar(400) primary key,title text,artist text,album text,duration text" +
-                                   GetInsertSql(GetAllTags(), " bool default false");
+                                   GetInsertSql(TagButtonModel.Instance.GetAllTags(), " bool default false");
                 CreateTable(DbName, TableName, createTableSql);//创建数据表
             }
         }
@@ -42,56 +42,35 @@ namespace TagPlayer.Model
         /// <summary>
         /// 将歌曲存入数据库
         /// </summary>
-        public void SaveSongsDb(List<Song> songList)
+        public void SaveSongs(List<Song> songList)
         {
             if (songList==null||!songList.Any())
             {
                 return;
             }
 
-            ClearTable(DbName, TableName);
+            DropTable(TableName);
 
             var columnSql = @"path,title,artist,album,duration";
             foreach (var song in songList)
             {
-                var insertSql = "'" + EscConvertor(song.Path) + "','" + EscConvertor(song.Title) + "','" + EscConvertor(song.Artist) + "','" + EscConvertor(song.Album) + "','" +
-                                song.Duration + "'";
+                var insertSql = $"'{ EscConvertor(song.Path)} ','{ EscConvertor(song.Title)}','{ EscConvertor(song.Artist)}','{ EscConvertor(song.Album) }','{song.Duration } '";
                 InsertTable(DbName, TableName, columnSql, insertSql);
             }
         }
 
-        internal void ChangeSongList(List<Song> songList)
+        internal void DeleteSongs(List<Song> songList)
         {
             if (songList == null || !songList.Any())
             {
                 return;
             }
-
-        }
-
-        /// <summary>
-        /// 从XML文件中获得所有标签
-        /// </summary>
-        /// <returns>标签集合</returns>
-        public List<string> GetAllTags()
-        {
-            var tagList = new List<string>();
-            //string xmlFileName = Path.Combine(Environment.CurrentDirectory, @"Image\SongTags.xml");
-            var path = @"..\..\Image\SongTags.xml";
-            XDocument xDoc = XDocument.Load(path/*@"C:\Users\john\Source\Repos\Player4\Player4\Image\SongTags.xml"*/);
-            var tags = xDoc.Descendants("Tags");
-            foreach (var category in tags)
+            var columnSql = "path";
+            foreach (var song in songList)
             {
-                foreach (var tag in category.Elements())
-                {
-                    foreach (var xElement in tag.Elements())
-                    {
-                        tagList.Add(xElement.Value);
-                    }
-                }
+                var deleteSql = $"'Path={EscConvertor(song.Path)}'";
+                DeleteTable(DbName, TableName, columnSql, deleteSql);
             }
-            //MessageBox.Show(tagList.Count.ToString());
-            return tagList;
         }
         private string GetInsertSql(List<string> list, string split)
         {
@@ -103,10 +82,6 @@ namespace TagPlayer.Model
         public List<Song> GetSongsDb()
         {
             var songList = new List<Song>();
-            if (!IsExistDb(DbName) || !IsExistTable(TableName))
-            {
-                return songList;
-            }
             var selectSql = @"select * from " + TableName;
             var dataReader = TableDataReader(DbName, selectSql);
             while (dataReader.Read())
@@ -136,10 +111,6 @@ namespace TagPlayer.Model
         }
         public void SaveSongTags(Song song)
         {
-            if (!IsExistDb(DbName) || !IsExistTable(TableName))
-            {
-                return;
-            }
             if (song.Tags.Count == 0 || song.Tags == null) return;
 
             var updateSql = string.Join(",", song.Tags.Select(i => "[" + i + "]=1"));
@@ -151,10 +122,6 @@ namespace TagPlayer.Model
         /// <param name="song"></param>
         public void ClearSongTags(Song song)
         {
-            if (!IsExistDb(DbName) || !IsExistTable(TableName))
-            {
-                return;
-            }
             if (song.Tags.Count == 0 || song.Tags == null) return;
 
             var clearSql = string.Join(",", song.Tags.Select(i => "[" + i + "]=0"));
@@ -168,10 +135,6 @@ namespace TagPlayer.Model
         public List<Song> GetSelectedSongs(List<string> selectedTags)
         {
             var songList = new List<Song>();
-            if (!IsExistDb(DbName) || !IsExistTable(TableName))
-            {
-                return songList;
-            }
             string selectSql;
             if (selectedTags.Count == 0 || selectedTags == null)
             {
