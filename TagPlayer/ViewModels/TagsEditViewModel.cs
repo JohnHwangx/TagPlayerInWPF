@@ -39,9 +39,9 @@ namespace TagPlayer.ViewModels
         private void SureExecute(Window window)
         {
             window.DialogResult = true;
-            SongListModel.ClearSongTags(SelectedSong);//将数据库中该歌曲的标签清空
+            SongListModel.Instance.ClearSongTags(SelectedSong);//将数据库中该歌曲的标签清空
             SelectedSong.Tags = new List<string>(TagButtonModel.Instance.SongTags);
-            SongListModel.SaveSongTags(SelectedSong);
+            SongListModel.Instance.SaveSongTags(SelectedSong);
             window.Close();
         }
 
