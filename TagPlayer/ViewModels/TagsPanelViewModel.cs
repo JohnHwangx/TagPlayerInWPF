@@ -8,6 +8,7 @@ using TagPlayer.Model;
 using System.Windows.Input;
 using Prism.Commands;
 using System.Windows.Controls;
+using System.Threading;
 
 namespace TagPlayer.ViewModels
 {
@@ -19,7 +20,18 @@ namespace TagPlayer.ViewModels
 
         private void OnLoadSongList()
         {
-            MainViewModel.SongList = SongListOperator.Instance.LoadDirectorySongList();
+            var paths = SongListOperator.Instance.LoadDirectorySongList();
+            MainViewModel.SongList.Clear();
+            for (int i = 0; i < paths.Count; i++)
+            {
+                Song song = new Song(paths[i]);
+                MainViewModel.SongList.Add(song);
+                if (i % 20 == 0)
+                {
+                    MainViewModel.SongListViewModel.InitialSongList(MainViewModel.SongList);
+                    //Thread.Sleep(1000);
+                }
+            }
         }
 
         public ICommand SureCommand { get; set; }

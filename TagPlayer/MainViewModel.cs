@@ -98,6 +98,21 @@ namespace TagPlayer
             }
         }
 
+        public void LoadSongList()
+        {
+            var paths = SongListOperator.Instance.LoadDirectorySongList();
+            SongList.Clear();
+            for (int i = 0; i < paths.Count; i++)
+            {
+                Song song = new Song(paths[i]);
+                SongList.Add(song);
+                if (i % 10 == 0)
+                {
+                    SongListViewModel.InitialSongList(SongList);
+                }
+            }
+        }
+
         private void OnPlayingSongChanged()
         {
             PlayingSong.LoadAlbum();

@@ -13,7 +13,10 @@ namespace TagPlayer.Model
 {
     public class SongListOperator : DispatcherObject
     {
-        private SongListOperator() { }
+        private SongListOperator()
+        {
+            SongList = new List<Song>();
+        }
 
         private static SongListOperator _instance;
         public static SongListOperator Instance
@@ -21,33 +24,38 @@ namespace TagPlayer.Model
             get { return _instance ?? (_instance = new SongListOperator()); }
         }
 
+        public List<Song> SongList { get; set; }
+
         /// <summary>
         /// 从文件夹加载歌曲列表
         /// </summary>
         /// <param name="songListPath">目录路径</param>
         /// <returns>歌曲列表</returns>
-        public List<Song> LoadDirectorySongList()
+        public List<string> LoadDirectorySongList()
         {
-            List<Song> songList = new List<Song>();
+            List<string> songList = new List<string>();
             using (var dirChooser = new System.Windows.Forms.FolderBrowserDialog())
             {
                 if (dirChooser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     LoadSongs(dirChooser.SelectedPath, songList);
-                    /****/
-                    //TaskDelegate task = LoadSongs;
-                    //IAsyncResult asyncResult = task.BeginInvoke(dirChooser.SelectedPath, songList, null, null);
-                    //task.EndInvoke(asyncResult);
-                    /****/
-                    //TaskDelegate task = LoadSongs;
-                    //Dispatcher.Invoke(task, dirChooser.SelectedPath, songList);
                 }
             }
-            SongListModel.Instance.SaveSongs(songList);
+            //SongListModel.Instance.SaveSongs(songList);
+            //return songList;
             return songList;
         }
 
-        private void LoadSongs(string songListPath, List<Song> songList)
+        private void LoadSongList()
+        {
+            var paths = LoadDirectorySongList();
+            foreach (var path in paths)
+            {
+                Song song = new Song(path);
+            }
+        }
+
+        private void LoadSongs(string songListPath, List<string> songPathList)
         {
             if (!Directory.Exists(songListPath)) return;
             foreach (var path in Directory.GetFileSystemEntries(songListPath))
@@ -56,15 +64,15 @@ namespace TagPlayer.Model
                     (File.GetAttributes(path) & FileAttributes.Hidden) != FileAttributes.Hidden &&
                     Path.GetExtension(path) == ".mp3")
                 {
-                    Song song = new Song(path);
+                    //Song song = new Song(path);
                     //Song song = new Song(path, path);
                     //Thread.Sleep(100);
-                    songList.Add(song);
+                    songPathList.Add(path);
                 }
                 else if (Directory.Exists(path) &&
                     (new DirectoryInfo(path).Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                 {
-                    LoadSongs(path, songList);
+                    LoadSongs(path, songPathList);
                 }
             }
         }
