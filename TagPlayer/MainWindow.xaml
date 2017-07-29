@@ -4,7 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TagPlayer.controls"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d" Height="600" Width="1050" x:Name="Window" FontFamily="Microsoft YaHei" Title="MainWindow" MinWidth="500" MinHeight="300" ResizeMode="CanResizeWithGrip">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction 
+                            Command="{Binding ClosingCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <DockPanel>
             <local:ControlView DockPanel.Dock="Bottom" VerticalAlignment="Bottom"/>

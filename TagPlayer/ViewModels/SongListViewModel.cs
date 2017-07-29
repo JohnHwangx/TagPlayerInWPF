@@ -45,7 +45,7 @@ namespace TagPlayer.ViewModels
         {
             DisSongList = SongListOperator.Instance.InitialSongList(songList);
         }
-
+        //双击播放列表全部歌曲
         public DelegateCommand<ListBox> DoubleClickCommand { get; set; }
         private void OnDoubleClick(Selector listBox)
         {
@@ -59,7 +59,7 @@ namespace TagPlayer.ViewModels
                 PlayModel.Instance.Play(MainViewModel.PlayingSong.Path);
             }
         }
-
+        //播放选中的歌曲
         public DelegateCommand<ListBox> PlayMenuCommand { get; set; }
         private void OnPlay(ListBox listBox)
         {
@@ -70,36 +70,36 @@ namespace TagPlayer.ViewModels
             MainViewModel.PlayState = PlayState.播放;
             PlayModel.Instance.Play(MainViewModel.PlayingSong.Path);
         }
-
+        //编辑歌曲标签
         public DelegateCommand<ListBox> EditCommand { get; set; }
         private void OnEdit(Selector listBox)
         {
             SongModel.EditSongTags(listBox);
         }
+        //将选中的歌曲添加到播放列表
         public DelegateCommand<ListBox> AddCommand { get; set; }
-
         private void OnAdd(ListBox listBox)
         {
             var selectedSongs = GetSelectedSongs(listBox);
             MainViewModel.AddPlayList(selectedSongs);
         }
-
+        //删除选中的歌曲
         public DelegateCommand<ListBox> DeleteCommand { get; set; }
-
         private void OnDelete(ListBox listBox)
         {
             var selectedSongs = GetSelectedSongs(listBox);
             MainViewModel.DeleteAtSongList(selectedSongs);
         }
-
+        //清空歌曲列表
         public DelegateCommand<ListBox> ClearCommand { get; set; }
-
         private void OnClear(ListBox listBox)
         {
             var selectedSongs = GetSelectedSongs(listBox, true);
             MainViewModel.DeleteAtSongList(selectedSongs);
         }
-
+        /// <summary>
+        /// 获取歌曲列表中选中的歌曲
+        /// </summary>
         private List<Song> GetSelectedSongs(ListBox listBox, bool isAll = false)
         {
             var selectedSongs = new List<Song>();

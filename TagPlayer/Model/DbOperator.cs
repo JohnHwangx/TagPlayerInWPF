@@ -93,7 +93,7 @@ namespace TagPlayer.Model
                 Conn.Open();
             }
 
-            var tableSql = $"drop table {tableName}";
+            var tableSql = $"delete from {tableName}";
             var comm = new SQLiteCommand(tableSql, Conn);
             comm.ExecuteNonQuery();
             comm.Dispose();

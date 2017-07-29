@@ -10,6 +10,7 @@ using TagPlayer.ViewModels;
 using System.Collections.ObjectModel;
 using Prism.Commands;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace TagPlayer
 {
@@ -140,7 +141,7 @@ namespace TagPlayer
         public void ChangePlayList(List<Song> songs)
         {
             PlayList = new List<Song>(songs);
-            PlayListModel.Instance.SaveSongs(PlayList);
+            //PlayListModel.Instance.SaveSongs(PlayList);
         }
 
         public void ChangePlayingSong(Song song)
@@ -158,7 +159,7 @@ namespace TagPlayer
                 var tempList = new List<Song>(PlayList);
                 tempList.AddRange(songs);
                 PlayList = tempList;
-                PlayListModel.Instance.SaveSongs(PlayList);
+                //PlayListModel.Instance.SaveSongs(PlayList);
             }
         }
 
@@ -185,6 +186,12 @@ namespace TagPlayer
             TagButtonModel.Instance.SetTagModel(ref button, TagsType.SelectTags);
         }
 
+        public DelegateCommand ClosingCommand { get; set; }
+        private void OnClosing()
+        {
+            PlayListModel.Instance.SaveSongs(PlayList);
+        }
+
         public TagsPanelViewModel TagsPanelViewModel { get; set; }
         public SongListViewModel SongListViewModel { get; set; }
         public ControlViewModel ControlViewModel { get; set; }
@@ -193,14 +200,15 @@ namespace TagPlayer
         public MainViewModel()
         {
             SongListViewModel = new SongListViewModel(this);
-
-            SongList = SongListModel.Instance.GetSongsDb();
-            PlayList = new List<Song>();
+            PlayListViewModel = new PlayListViewModel(this);
             TagsPanelViewModel = new TagsPanelViewModel(this);
             ControlViewModel = new ControlViewModel(this);
-            PlayListViewModel = new PlayListViewModel(this);
+
+            SongList = SongListModel.Instance.GetSongsDb();
+            PlayList = PlayListModel.Instance.LoadSongs(SongList);
 
             SelectTagsCommand = new DelegateCommand<Button>(OnSelectTags);
+            ClosingCommand = new DelegateCommand(OnClosing);
         }
     }
 

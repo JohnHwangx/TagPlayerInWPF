@@ -44,6 +44,7 @@ namespace TagPlayer.Model
                 InsertTable(DbName, TableName, columnSql, insertSql);
             }
         }
+
         /// <summary>
         /// 读数据库歌曲，从歌曲列表中获取播放列表
         /// </summary>
