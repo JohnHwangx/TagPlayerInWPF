@@ -26,11 +26,12 @@ namespace TagPlayer.ViewModels
             {
                 Song song = new Song(paths[i]);
                 MainViewModel.SongList.Add(song);
-                if (i % 20 == 0)
-                {
-                    MainViewModel.SongListViewModel.InitialSongList(MainViewModel.SongList);
-                    //Thread.Sleep(1000);
-                }
+                //if (i % 20 == 0)
+                //{
+                //    MainViewModel.SongListViewModel.InitialSongList(MainViewModel.SongList);
+                //    //Thread.Sleep(1000);
+                //}
+                MainViewModel.SongListViewModel.InitialSongList(song, i);
             }
         }
 
