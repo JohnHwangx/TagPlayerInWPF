@@ -9,6 +9,9 @@ using System.Windows.Input;
 using Prism.Commands;
 using System.Windows.Controls;
 using System.Threading;
+using System.Windows.Forms;
+using TagPlayer.ProgressBar;
+using ProgressBar;
 
 namespace TagPlayer.ViewModels
 {
@@ -18,12 +21,29 @@ namespace TagPlayer.ViewModels
 
         public ICommand LoadSongListCommand { get; set; }
 
+        private List<string> paths;
+
         private void OnLoadSongList()
         {
-            var paths = SongListOperator.Instance.LoadDirectorySongList();
+            paths = SongListOperator.Instance.LoadDirectorySongList();
+
+            var progressable = new LoadProgressBar(this, p =>
+            {
+                if (!p.IsCanceled)
+                {
+                    MessageBox.Show("导入完成");
+                }
+            });
+            ProgressRunner.Run(progressable, new List<string> { "导入歌曲", "保存歌曲" });
+        }
+
+        public void DoWithProgressable(Action<int, int, string> progress)
+        {
             MainViewModel.SongList.Clear();
+            int current = 0;
             for (int i = 0; i < paths.Count; i++)
             {
+                current++;
                 Song song = new Song(paths[i]);
                 MainViewModel.SongList.Add(song);
                 if (i % 20 == 0)
@@ -31,6 +51,7 @@ namespace TagPlayer.ViewModels
                     MainViewModel.SongListViewModel.InitialSongList(MainViewModel.SongList);
                     //Thread.Sleep(1000);
                 }
+                progress(0, current * 100 / paths.Count, $"正在导入歌曲：{song.Title}");
             }
         }
 

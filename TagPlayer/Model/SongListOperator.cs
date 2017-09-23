@@ -29,7 +29,6 @@ namespace TagPlayer.Model
         /// <summary>
         /// 从文件夹加载歌曲列表
         /// </summary>
-        /// <param name="songListPath">目录路径</param>
         /// <returns>歌曲列表</returns>
         public List<string> LoadDirectorySongList()
         {
