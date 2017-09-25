@@ -31,7 +31,8 @@ namespace TagPlayer.ViewModels
             {
                 if (!p.IsCanceled)
                 {
-                    MessageBox.Show($"共导入{_paths.Count}首歌曲");
+                    var text = $"共导入{MainViewModel.SongList.Count}首歌曲";
+                    MessageBox.Show(text);
                 }
             });
             ProgressRunner.Run(progressable);
