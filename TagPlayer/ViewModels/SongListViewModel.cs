@@ -37,14 +37,25 @@ namespace TagPlayer.ViewModels
             set
             {
                 _disSongList = value;
-                RaisePropertyChanged("DisSongList");
+                //RaisePropertyChanged("DisSongList");
             }
         }
 
         public void InitialSongList(List<Song> songList)
         {
-            DisSongList = SongListOperator.Instance.InitialSongList(songList);
+            DisSongList.Clear();
+            //DisSongList = SongListOperator.Instance.InitialSongList(songList);
+            foreach (var songListItem in SongListOperator.Instance.InitialSongList(songList))
+            {
+                DisSongList.Add(songListItem);
+            }
         }
+
+        public void InitialSongList(Song song,int i)
+        {
+            DisSongList.Add(SongListOperator.Instance.InitialSong(song,i));
+        }
+
         //双击播放列表全部歌曲
         public DelegateCommand<ListBox> DoubleClickCommand { get; set; }
         private void OnDoubleClick(Selector listBox)

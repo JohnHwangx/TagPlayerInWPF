@@ -99,5 +99,17 @@ namespace TagPlayer.Model
             }
             return songList;
         }
+
+        public SongListItem InitialSong(Song song,int i)
+        {
+            return new SongListItem
+            {
+                Song = song,
+                SongNum = i + 1,
+                Color = i % 2 == 1
+                    ? new SolidColorBrush(Colors.White)
+                    : new SolidColorBrush(Colors.AliceBlue)
+            };
+        }
     }
 }
