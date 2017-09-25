@@ -7,10 +7,11 @@ using Visibility = System.Windows.Visibility;
 
 namespace ProgressBar
 {
-    public class ProgressViewModel:NotificationObject
+    public class ProgressViewModel : NotificationObject
     {
         public ProgressViewModel()
         {
+            IsShowTime = true;
             Max = 100;
         }
         private long? _lastProgressTicks;
@@ -35,6 +36,19 @@ namespace ProgressBar
             }
         }
 
+        private bool _isShowTime;
+
+        public bool IsShowTime
+        {
+            get { return _isShowTime; }
+            set
+            {
+                _isShowTime = value; 
+                RaisePropertyChanged("IsShowTime");
+            }
+        }
+
+
         private int _currentValue;
 
         public int CurrentValue
@@ -42,18 +56,18 @@ namespace ProgressBar
             get { return _currentValue; }
             set
             {
-                if (_currentValue!=value)
+                if (_currentValue != value)
                 {
                     _currentValue = value;
-                    RaisePropertyChanged("CurrentValue","Tip");
+                    RaisePropertyChanged("CurrentValue", "Tip");
                 }
-                
+
             }
         }
 
         public String Tip
         {
-            get { return $"{(CurrentValue - Min + 1) * 100 / (Max - Min + 1)}"; }
+            get { return $"{(CurrentValue - Min + 1) * 100 / (Max - Min + 1)}%"; }
         }
 
         private int _min;
@@ -63,7 +77,7 @@ namespace ProgressBar
             get { return _min; }
             set
             {
-                _min = value; 
+                _min = value;
                 RaisePropertyChanged("Min");
             }
         }
@@ -75,7 +89,7 @@ namespace ProgressBar
             get { return _max; }
             set
             {
-                _max = value; 
+                _max = value;
                 RaisePropertyChanged("Max");
             }
         }
@@ -87,7 +101,7 @@ namespace ProgressBar
             get { return _status; }
             set
             {
-                _status = value; 
+                _status = value;
                 RaisePropertyChanged("Status");
             }
         }
@@ -99,20 +113,8 @@ namespace ProgressBar
             get { return _id; }
             set
             {
-                _id = value; 
+                _id = value;
                 RaisePropertyChanged("Id");
-            }
-        }
-
-        private string _userTime;
-
-        public string UserTime
-        {
-            get { return _userTime; }
-            set
-            {
-                _userTime = value; 
-                RaisePropertyChanged("UserTime");
             }
         }
 
@@ -123,7 +125,7 @@ namespace ProgressBar
             get { return _useTime; }
             set
             {
-                _useTime = value; 
+                _useTime = value;
                 RaisePropertyChanged("UseTime");
             }
         }
@@ -136,7 +138,7 @@ namespace ProgressBar
 
         private void ProgressStep(int stepIndex)
         {
-            if (StepInfoList!=null&&stepIndex<StepInfoList.Count)
+            if (StepInfoList != null && stepIndex < StepInfoList.Count)
             {
                 for (int i = 0; i < stepIndex; i++)
                 {
@@ -162,14 +164,14 @@ namespace ProgressBar
 
         private void Progressable_ProgressChangedEvent(object sender, ProgressChangedEventArgs e)
         {
-            if (_lastProgressTicks==null)
+            if (_lastProgressTicks == null)
             {
                 _lastProgressTicks = DateTime.Now.Ticks;
                 HandleProgressChangedEvent(e);
             }
             else
             {
-                if (DateTime.Now.Ticks-_lastProgressTicks.Value>=500000)
+                if (DateTime.Now.Ticks - _lastProgressTicks.Value >= 500000)
                 {
                     _lastProgressTicks = DateTime.Now.Ticks;
                     HandleProgressChangedEvent(e);
@@ -179,13 +181,13 @@ namespace ProgressBar
 
         private void HandleProgressChangedEvent(ProgressChangedEventArgs e)
         {
-            if (e!=null)
+            if (e != null)
             {
                 CurrentValue = e.ProgressPercentage;
                 var statusWithStep = e.UserState as StatusWithStep;
                 string status;
                 var id = string.Empty;
-                if (statusWithStep!=null)
+                if (statusWithStep != null)
                 {
                     ProgressStep(statusWithStep.StepIndex);
                     status = statusWithStep.Status;
@@ -211,7 +213,7 @@ namespace ProgressBar
 
         private void DoEvent()
         {
-            DispatcherFrame frame=new DispatcherFrame();
+            DispatcherFrame frame = new DispatcherFrame();
             Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background,
                 new DispatcherOperationCallback(ExitFrame), frame);
             Dispatcher.PushFrame(frame);
@@ -219,7 +221,7 @@ namespace ProgressBar
 
         private object ExitFrame(object f)
         {
-            ((DispatcherFrame) f).Continue = false;
+            ((DispatcherFrame)f).Continue = false;
             return null;
         }
     }

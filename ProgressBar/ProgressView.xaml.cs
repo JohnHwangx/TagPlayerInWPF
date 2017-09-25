@@ -56,11 +56,6 @@ namespace ProgressBar
             };
         }
 
-        public void InitStep(IEnumerable<StepInfo> stepList)
-        {
-            ProgressViewModel.InitStep(stepList.ToList());
-        }
-
         public void StartShow(Action showed = null)
         {
             Loaded += (sender, e) =>

@@ -18,6 +18,11 @@ namespace TagPlayer.ProgressBar
             _command.DoWithProgressable(RaiseProgressChanged);
         }
 
+        public override void Cancel()
+        {
+            _command.Cancel();
+        }
+
         private void RaiseProgressChanged(int stepIndex, int progress, string status)
         {
             RaiseProgressChanged(new ProgressChangedEventArgs(progress, new StatusWithStep { StepIndex = stepIndex, Status = status }));

@@ -21,37 +21,46 @@ namespace TagPlayer.ViewModels
 
         public ICommand LoadSongListCommand { get; set; }
 
-        private List<string> paths;
+        private List<string> _paths;
 
         private void OnLoadSongList()
         {
-            paths = SongListOperator.Instance.LoadDirectorySongList();
+            _paths = SongListOperator.Instance.LoadDirectorySongList();
 
             var progressable = new LoadProgressBar(this, p =>
             {
                 if (!p.IsCanceled)
                 {
-                    MessageBox.Show("导入完成");
+                    MessageBox.Show($"共导入{_paths.Count}首歌曲");
                 }
             });
-            ProgressRunner.Run(progressable, new List<string> { "导入歌曲", "保存歌曲" });
+            ProgressRunner.Run(progressable);
         }
+
+        internal void Cancel()
+        {
+            IsCanceled = true;
+        }
+
+        public bool IsCanceled { get; private set; }
 
         public void DoWithProgressable(Action<int, int, string> progress)
         {
             MainViewModel.SongList.Clear();
-            int current = 0;
-            for (int i = 0; i < paths.Count; i++)
+            var current = 0;
+            foreach (var path in _paths)
             {
-                current++;
-                Song song = new Song(paths[i]);
-                MainViewModel.SongList.Add(song);
-                if (i % 20 == 0)
+                if (IsCanceled)
                 {
-                    MainViewModel.SongListViewModel.InitialSongList(MainViewModel.SongList);
-                    //Thread.Sleep(1000);
+                    break;
                 }
-                progress(0, current * 100 / paths.Count, $"正在导入歌曲：{song.Title}");
+                current++;
+                Song song = new Song(path);
+                MainViewModel.SongList.Add(song);
+
+                MainViewModel.SongListViewModel.InitialSongList(MainViewModel.SongList);
+
+                progress(0, current * 100 / _paths.Count, $"正在导入歌曲：{song.Title}");
             }
         }
 

@@ -5,7 +5,6 @@ namespace ProgressBar
 {
     public interface IProgressView
     {
-        void InitStep(IEnumerable<StepInfo> stepList);
         void InitProgressable(IProgressable progress);
         void StartShow(Action showed = null);
         void EndShow(bool isCatchException, Action endShowAction);
